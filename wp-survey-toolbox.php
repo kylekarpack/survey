@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP Survey Toolbox
-Plugin URI: http://kylekarpack.com
+Plugin URI: http://kylekarpack.com/survey-toolbox
 Description: Allows WordPress users to create surveys and collect and view the results from the WordPress dashboard 
 Version: 0.1
 Author: Kyle Karpack, Wiley Bennett, Brad Arnesen, and Michellene Steinberg
@@ -19,19 +19,29 @@ This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
 // Make sure we don't expose any info if called directly
 if ( !function_exists( 'add_action' ) ) {
-	echo 'It was worth a shot, but you can\'t access plugin functionality this way. Sorry!';
+	echo 'It was worth a shot, but you can\'t access survey functionality this way. Sorry!';
 	exit;
 }
 
 add_action('admin_menu', 'surveytoolbox_menu');
 function surveytoolbox_menu() {
+	// Add the top main menu item in the admin sidebar
 	if (function_exists('add_menu_page')) {
-		add_menu_page(__('WP Survey Toolbox', 'survey'), __('WP Survey Toolbox', 'survey'), 'manage_surveys', 'wp-survey-toolbox/admin.php', '', plugins_url('wp-polls/images/poll.png'));
+		add_menu_page('Survey Toolbox', 'Survey Toolbox', 'activate_plugins', 'survey/wp-survey-toolbox.php', '', plugins_url('survey/images/icon.png'), 100);
 	}
-}	
+	// Add submenu items
+	if (function_exists('add_submenu_page')) {
+		add_submenu_page('survey/wp-survey-toolbox.php', 'Manage Surveys', 'Manage Surveys', 'activate_plugins', 'survey/survey-builder.php');
+		add_submenu_page('survey/wp-survey-toolbox.php', 'See Results', 'See Results', 'activate_plugins', 'survey/results.php');
+	}
+}
 	
 ?>
