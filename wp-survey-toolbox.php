@@ -46,16 +46,16 @@ function toolbox_install() {
 	  PRIMARY KEY  (qid)
 	);";
 	
+	//FOREIGN KEYS!!!!!!!!!!!!
+	// FOREIGN KEY  (sid) REFERENCES " . $wpdb->prefix . "wp_survey_toolbox_surveys(sid),
+	// FOREIGN KEY  (qid) REFERENCES " . $wpdb->prefix . "wp_survey_toolbox_questions(qid)
+	
 	// Surveys table
 	$create_tbl_surveys = "CREATE TABLE " . $wpdb->prefix . "wp_survey_toolbox_surveys (
 	  sid mediumint(9) NOT NULL AUTO_INCREMENT,
 	  title text NOT NULL,
 	  PRIMARY KEY  (sid)
 	);";
-	
-	//FOREIGN KEYING FOR THESE TWO!!!
-	  //FOREIGN KEY (sid) REFERENCES " . $wpdb->prefix . "wp_survey_toolbox_surveys(sid),
-	  //FOREIGN KEY (qid) REFERENCES " . $wpdb->prefix . "wp_survey_toolbox_questions(qid)
 	
 	// Responses table
 	$create_tbl_responses = "CREATE TABLE " . $wpdb->prefix . "wp_survey_toolbox_responses (
@@ -97,10 +97,12 @@ function surveytoolbox_menu() {
 	}
 	// Add submenu items
 	if (function_exists('add_submenu_page')) {
-		add_submenu_page('wp-survey-toolbox/wp-survey-toolbox.php', 'Manage Surveys', 'Manage Surveys', 'activate_plugins', 'wp-survey-toolbox/survey-builder.php');
-		add_submenu_page('wp-survey-toolbox/wp-survey-toolbox.php', 'See Results', 'See Results', 'activate_plugins', 'wp-survey-toolbox/survey-builder.php');
-		//add_submenu_page('wp-survey-toolbox/wp-survey-toolbox.php', 'See Results', 'See Results', 'activate_plugins', 'wp-survey-toolbox/results.php');
+		add_submenu_page('wp-survey-toolbox/wp-survey-toolbox.php', 'Manage Surveys', 'Manage Surveys', 'activate_plugins', 'wp-survey-toolbox-builder.php');
+		add_submenu_page('wp-survey-toolbox/wp-survey-toolbox.php', 'See Results', 'See Results', 'activate_plugins', 'wp-survey-toolbox/wp-survey-toolbox-results.php');
+		add_submenu_page('wp-survey-toolbox/wp-survey-toolbox.php', 'Settings', 'Settings', 'activate_plugins', 'wp-survey-toolbox/wp-survey-toolbox-settings.php');
 	}
 }
+
+
 	
 ?>
