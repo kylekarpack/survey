@@ -9,6 +9,6 @@ $text = file_get_contents(WP_PLUGIN_DIR . '/wp-survey-toolbox/input.less');
 echo "Here is proof that LESS is working: ";
 ?> <pre>
 <?php
-echo $less->compile($text);
+$less->checkedCompile(WP_PLUGIN_DIR . '/wp-survey-toolbox/input.less', WP_PLUGIN_DIR . '/wp-survey-toolbox/style.css');
 ?>
 </pre>

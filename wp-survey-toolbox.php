@@ -93,16 +93,14 @@ add_action('admin_menu', 'surveytoolbox_menu');
 function surveytoolbox_menu() {
 	// Add the top main menu item in the admin sidebar
 	if (function_exists('add_menu_page')) {
-		add_menu_page('Survey Toolbox', 'Survey Toolbox', 'activate_plugins', 'wp-survey-toolbox/wp-survey-toolbox.php', '', plugins_url('wp-survey-toolbox/images/icon.png'), 100);
+		add_menu_page('Survey Manager', 'Survey Toolbox', 'activate_plugins', 'wp-survey-toolbox/wp-survey-toolbox-manager.php', '', plugins_url('wp-survey-toolbox/images/icon.png'), 100);
 	}
 	// Add submenu items
 	if (function_exists('add_submenu_page')) {
-		add_submenu_page('wp-survey-toolbox/wp-survey-toolbox.php', 'Manage Surveys', 'Manage Surveys', 'activate_plugins', 'wp-survey-toolbox-builder.php');
-		add_submenu_page('wp-survey-toolbox/wp-survey-toolbox.php', 'See Results', 'See Results', 'activate_plugins', 'wp-survey-toolbox/wp-survey-toolbox-results.php');
-		add_submenu_page('wp-survey-toolbox/wp-survey-toolbox.php', 'Settings', 'Settings', 'activate_plugins', 'wp-survey-toolbox/wp-survey-toolbox-settings.php');
+		add_submenu_page('wp-survey-toolbox/wp-survey-toolbox-manager.php', 'Build a Survey', 'Build a Survey', 'activate_plugins', 'wp-survey-toolbox/wp-survey-toolbox-builder.php');
+		add_submenu_page('wp-survey-toolbox/wp-survey-toolbox-manager.php', 'See Results', 'See Results', 'activate_plugins', 'wp-survey-toolbox/wp-survey-toolbox-results.php');
+		add_submenu_page('wp-survey-toolbox/wp-survey-toolbox-manager.php', 'Settings', 'Settings', 'activate_plugins', 'wp-survey-toolbox/wp-survey-toolbox-settings.php');
 	}
 }
-
-
 	
 ?>
