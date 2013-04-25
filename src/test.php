@@ -17,4 +17,5 @@ $results = array("number of surveys in the database" => $a,
 echo json_encode($results);
 
 
+
 ?>
