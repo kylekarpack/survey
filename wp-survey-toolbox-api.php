@@ -1,25 +1,21 @@
 <?php
 
-function reply() {
-	global $wpdb;
+header('Content-Type: application/json');
 
-	// require(dirname(__FILE__) . '/Slim/Slim.php');
-	// \Slim\Slim::registerAutoLoader();
+define( 'SHORTINIT', true );
+require_once( dirname(dirname(dirname(__DIR__))) . '/wp-load.php' );
 
-	// $app = new \Slim\Slim();
+global $wpdb;
 
-	// $app->get('/sid.:id', function($id) {     
-		// header('Content-Type: application/json');
-		// $surveyInfo = $wpdb->get_row("SELECT * FROM " . $wpdb->prefix . "wp_survey_toolbox_surveys WHERE sid = $surveyID", ARRAY_N);
-		// echo($id);
-		// echo json_encode($surveyInfo);
+$a = $wpdb->get_var("SELECT count(*) FROM " . $wpdb->prefix . "wp_survey_toolbox_surveys");
+$b = $wpdb->get_row("SELECT * FROM " . $wpdb->prefix . "wp_survey_toolbox_surveys", 'ARRAY_N');
 
-	// });
+$results = array("number of surveys in the database" => $a,
+				"query string you supplied" => $_SERVER['QUERY_STRING'],
+				"results" => $b
+);
+echo json_encode($results);
 
-	// $app->run(); 
 
-}
-
-reply();
 
 ?>
