@@ -110,23 +110,5 @@ function surveytoolbox_menu() {
 		add_submenu_page('wp-survey-toolbox/wp-survey-toolbox-manager.php', 'API', 'API', 'activate_plugins', 'wp-survey-toolbox/wp-survey-toolbox-api.php');
 	}
 }
-
-include 'src/WpSurveyToolbox.php'; // Class File
- 
-// Create an instance of the Plugin Class
-function call_wp_survey_toolbox() {
-    return new WpSurveyToolbox( 'admin' );
-}
- 
-// Only when the current user is an Admin
-if ( is_admin() )
-    add_action( 'init', 'call_wp_survey_toolbox' );
- 
-// Helper function
-if ( ! function_exists( 'pp' ) ) {
-    function pp() {
-        return plugin_dir_url( __FILE__ );
-    }
-}
 	
 ?>
