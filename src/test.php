@@ -2,9 +2,8 @@
 
 header('Content-Type: application/json');
 
-
 define( 'SHORTINIT', true );
-require_once( $_SERVER['DOCUMENT_ROOT'] . 'wp-survey-toolbox/wp-load.php' );
+require_once( dirname(dirname(dirname(dirname(__DIR__)))) . '/wp-load.php' );
 
 global $wpdb;
 
