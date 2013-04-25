@@ -21,7 +21,7 @@ require.config({
 require(['jquery', 'underscore', 'backbone', 'text', 'app'], function ($, _, Backbone, TEXT) {   // or, you could use these deps in a separate module using define
     console.log(Backbone);
     console.log(TEXT);
-    var app = new App();
+    var app = App;
     app.init();
 });
 
