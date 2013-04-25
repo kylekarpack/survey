@@ -1,22 +1,27 @@
 
-requirejs.config({
+
+require.config({
+    shim: {
+        underscore: {
+            exports: '_'
+        },
+        backbone: {
+            deps: ["underscore", "jquery"],
+            exports: "Backbone"
+        }
+    },
     paths: {
-//        'backbone':     'libs/backbone.min.js',
-//        'underscore':   'libs/underscore.min.js',
-//        'text':         'libs/text.min.js',
-//        'jquery':       'libs/jquery.min.js'
+        'templates': "../../templates",
+        'app': "../app"
     },
     baseUrl: 'js/libs'
 });
 
-requirejs(['underscore', 'jquery', 'backbone', 'text'], function(_, $, Backbone, TEXT) {
-    console.log(_);
-    console.log($(window));
+//the "main" function to bootstrap your code
+require(['jquery', 'underscore', 'backbone', 'text', 'app'], function ($, _, Backbone, TEXT) {   // or, you could use these deps in a separate module using define
     console.log(Backbone);
     console.log(TEXT);
+    var app = new App();
+    app.init();
 });
 
-//define(['underscore', 'backbone'], function(_, Backbone) {
-//    console.log(Backbone);
-//});
-//

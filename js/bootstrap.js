@@ -12,7 +12,7 @@ var Photo = Backbone.Model.extend({
         }
     },
     initialize: function() {
-        console.log('this model has been initialized'); 
+        console.log('this model has been initialized');
         this.on("invalid", function(model, error) {
             console.log(error);
         });
