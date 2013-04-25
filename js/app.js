@@ -5,7 +5,7 @@ var App = function() {                                                          
 
 App.prototype.init = function() {                                               console.log("App Initiated!");
     
-    var stburl = stburl || "test.php";
+    var stburl = stburl || "src/test.php";
     
     var Q = Backbone.Model.extend({
         defaults : {

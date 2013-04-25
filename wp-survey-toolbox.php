@@ -80,8 +80,15 @@ function toolbox_install() {
 	dbDelta($create_tbl_lookup);
 }
 
+function toolbox_remove() {
+	global $wpdb;
+	
+	// FINISH THIS: DELETE TABLES ON UNINSTALL
+}
+
 // Add the data tables
 register_activation_hook( __FILE__, 'toolbox_install' );
+register_uninstall_hook( __FILE__, 'toolbox_remove' );
 
 // Make sure we don't expose any info if called directly
 if ( !function_exists( 'add_action' ) ) {
