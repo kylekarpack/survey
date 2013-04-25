@@ -6,7 +6,7 @@ class WpSurveyToolbox {
     public $postTypeNamePlural = 'Surveys';
  
     // Meta Box Stuff
-    public $metaBoxTitle = 'Answers';
+    public $metaBoxTitle = 'Questions';
     public $metaBoxTempl = 'templates/metabox.templ.php';
  
     // Question Id's
@@ -220,7 +220,5 @@ class WpSurveyToolbox {
 		return $template;
 	}
 }
-
-
 
 ?>
