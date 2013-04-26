@@ -14,8 +14,8 @@ $results = array("number of surveys in the database" => $a,
 				"query string you supplied" => $_SERVER['QUERY_STRING'],
 				"results" => $b
 );
-echo json_encode($results);
-
+//echo json_encode($results);
+echo json_encode(file_get_contents('php://input'));
 
 
 ?>
