@@ -12,11 +12,12 @@ var App = {
             //sync: this.sync,
             initialize : function() {
                 this.set('type', "true/false");
-                this.set('val', "The sky is blue:");
+                this.set('val', {name:"The sky is blue:", creator:"Wiley"});
             }
         });
         
         var question = new Q();
+        
         question.save(question.attributes, {
             success: function(m, r, o) {
                 console.log("success");
