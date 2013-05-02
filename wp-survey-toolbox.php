@@ -57,6 +57,13 @@ function toolbox_install() {
 	  PRIMARY KEY  (sid)
 	);";
 	
+	// Survey settings table
+	$create_tbl_surveys = "CREATE TABLE " . $wpdb->prefix . "wp_survey_toolbox_survey_settings (
+	  sid mediumint(9) NOT NULL AUTO_INCREMENT,
+	  settings text NOT NULL,
+	  FOREIGN KEY  (sid)
+	);";
+	
 	// Responses table
 	$create_tbl_responses = "CREATE TABLE " . $wpdb->prefix . "wp_survey_toolbox_responses (
 	  rid mediumint(9) NOT NULL AUTO_INCREMENT,

@@ -1,60 +1,24 @@
 <?php
 
-// $str = rtrim($_SERVER["REQUEST_URI"],'/');
-
-// $queryParts = explode("/", $str);
-
-// $requestType = $queryParts[count($queryParts) - 1];
-
 /*
 Behavior:
 */
 
+echo(dirname(__DIR__));
+exit;
 
 // TODO: Add exit on get if not admin
 // Prevent POSTS not from correct origin
 
 // Load up WordPress functionality
 define( 'SHORTINIT', true );
-require_once( dirname(dirname(dirname(__DIR__))) . '/wp-load.php' );
+require_once( dirname(dirname(dirname(dirname(__FILE__)))) . '/wp-load.php' );
 
 global $wpdb;
 
+//var_dump ($_SERVER);
+
 $time_start = microtime(true);
-
-// Get all info from all surveys
-
-// Handle GET requests
-// if ($_SERVER["REQUEST_METHOD"] == "GET") {
-	// header('Content-Type: application/json');
-
-	// if ( get_param("fetch") == "surveys" ) {
-		// if (! get_param("sid")) { // Get all surveys
-			// echo json_encode($wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "wp_survey_toolbox_surveys", "ARRAY_A"));
-			// exit;
-		// } else { // Get a survey by id
-			// $sid = get_param("sid");
-			// echo json_encode($wpdb->get_row("SELECT * FROM " . $wpdb->prefix . "wp_survey_toolbox_surveys WHERE sid = $sid", "ARRAY_A"));
-			// exit;
-		// }
-	// }
-	
-	
-// POST Logic	
-// } elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
-	// header('Content-Type: application/json');
-	// echo "You made a post request:\n";
-	// echo file_get_contents('php://input');
-	// exit;
-// } 
-
-
-
-// $results = array("number of surveys in the database" => $a,
-				// "query string you supplied" => $_SERVER['QUERY_STRING'],
-				// "results" => $b
-//);
-//echo json_encode($results);
 
 $verb = $_SERVER['REQUEST_METHOD'];
 
@@ -64,15 +28,31 @@ if ($verb == "POST") {
 
 	$request = json_decode($request, true);
 
-	$requestType = $request["type"];
-	$sid = $request["sid"];
+	$requestType = $request["create"];
+	
+	
+	if ($requestType == "q") { // Create or update a	  question
+	
+		$qType = $request["type"];
+		$sid = $request["sid"];
+		$val = $request["val"];
 
-
-	//echo json_encode($requestType);
-	echo $requestType;
+		//echo json_encode($requestType);
+		echo "Added a " . $qType . " to the database";
+		echo "\n";
+		echo "Question text: " . json_encode($val);
+	
+	} else { // $requestType == "s" ... Create or update a survey
+		
+	}
 	
 } elseif ($verb == "GET" ) {
-	echo "get requests not yet supported";
+	$allQuestions = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "wp_survey_toolbox_questions");
+	header('Content-type: application/json');
+	echo json_encode($allQuestions);
+	//var_dump ($_SERVER);
+} elseif ($verb == "DELETE") {
+	echo "delete not yet functional";
 }
 
 //header('Content-Type: application/json');
