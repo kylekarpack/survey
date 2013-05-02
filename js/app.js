@@ -5,6 +5,7 @@ var App = {
         
         var Q = Backbone.Model.extend({
             defaults : {
+                create: "q",
                 type: "",
                 val: ""
             },
@@ -45,5 +46,9 @@ var App = {
                 console.log({o: o});
             }
         });
+        question.destroy({error: function(){
+                console.log("error");
+        }});
+        
     }
 }
