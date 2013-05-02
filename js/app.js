@@ -16,6 +16,20 @@ var App = {
             }
         });
         
+        var Qview = Backbone.View.extend({
+            tagName: "a",
+            className: "question",
+            events: {
+                "click .icon": "open"
+            },
+            initialize: function() {
+                this.listenTo(this.model, "change", this.render)
+            },
+            render: function() {
+                
+            }
+        });
+        
         var question = new Q();
         
         question.save(question.attributes, {
