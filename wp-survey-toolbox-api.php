@@ -1,10 +1,10 @@
 <?php
 
-$str = rtrim($_SERVER["REQUEST_URI"],'/');
+// $str = rtrim($_SERVER["REQUEST_URI"],'/');
 
-$queryParts = explode("/", $str);
+// $queryParts = explode("/", $str);
 
-$requestType = $queryParts[count($queryParts) - 1];
+// $requestType = $queryParts[count($queryParts) - 1];
 
 /*
 Behavior:
@@ -25,53 +25,65 @@ $time_start = microtime(true);
 // Get all info from all surveys
 
 // Handle GET requests
-if ($_SERVER["REQUEST_METHOD"] == "GET") {
-	header('Content-Type: application/json');
+// if ($_SERVER["REQUEST_METHOD"] == "GET") {
+	// header('Content-Type: application/json');
 
-	// Prevent access if user is not admin and tries to retrieve information
-	// if ( 1 != 1 ) {
-		// $i = current_user_can('manage_options');
-		// header('HTTP/1.0 403 Forbidden');
-		// exit;
+	// if ( get_param("fetch") == "surveys" ) {
+		// if (! get_param("sid")) { // Get all surveys
+			// echo json_encode($wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "wp_survey_toolbox_surveys", "ARRAY_A"));
+			// exit;
+		// } else { // Get a survey by id
+			// $sid = get_param("sid");
+			// echo json_encode($wpdb->get_row("SELECT * FROM " . $wpdb->prefix . "wp_survey_toolbox_surveys WHERE sid = $sid", "ARRAY_A"));
+			// exit;
+		// }
 	// }
-	if ( get_param("fetch") == "surveys" ) {
-		if (! get_param("sid")) { // Get all surveys
-			echo json_encode($wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "wp_survey_toolbox_surveys", "ARRAY_A"));
-			exit;
-		} else { // Get a survey by id
-			$sid = get_param("sid");
-			echo json_encode($wpdb->get_row("SELECT * FROM " . $wpdb->prefix . "wp_survey_toolbox_surveys WHERE sid = $sid", "ARRAY_A"));
-			exit;
-		}
-	}
 	
 	
 // POST Logic	
-} elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
-	header('Content-Type: application/json');
-	echo "You made a post request:\n";
-	echo file_get_contents('php://input');
-	exit;
-} 
+// } elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
+	// header('Content-Type: application/json');
+	// echo "You made a post request:\n";
+	// echo file_get_contents('php://input');
+	// exit;
+// } 
 
 
 
-$results = array("number of surveys in the database" => $a,
-				"query string you supplied" => $_SERVER['QUERY_STRING'],
-				"results" => $b
-);
+// $results = array("number of surveys in the database" => $a,
+				// "query string you supplied" => $_SERVER['QUERY_STRING'],
+				// "results" => $b
+//);
 //echo json_encode($results);
-$request = file_get_contents('php://input');
 
-header('HTTP/1.0 400 BAD REQUEST');
-echo ( 'HTTP/1.0 400 BAD REQUEST:' );
-echo ("\n ");
-echo ( $_SERVER['QUERY_STRING'] );
+$verb = $_SERVER['REQUEST_METHOD'];
+
+if ($verb == "POST") {
+
+	$request = file_get_contents('php://input');
+
+	$request = json_decode($request, true);
+
+	$requestType = $request["type"];
+	$sid = $request["sid"];
+
+
+	//echo json_encode($requestType);
+	echo $requestType;
+	
+} elseif ($verb == "GET" ) {
+	echo "get requests not yet supported";
+}
+
+//header('Content-Type: application/json');
+
+// header('HTTP/1.0 400 BAD REQUEST');
+// echo ( 'HTTP/1.0 400 BAD REQUEST:' );
+// echo ("\n ");
+// echo ( $_SERVER['QUERY_STRING'] );
 
 //$time_end = microtime(true);
 //header("X-Script-Runtime: " . ($time_end - $time_start) . " seconds" );
-
-//echo json_encode($request);
 
 
 // FUNCTIONS
