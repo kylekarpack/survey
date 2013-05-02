@@ -1,7 +1,7 @@
 
 var App = {
     init: function() {                                                          console.log("App Initiated!");
-        var stburl = stburl || "wp-survey-toolbox-api";
+        var stburl = stburl || "wp-survey-toolbox-api.php";
         
         var Q = Backbone.Model.extend({
             defaults : {
