@@ -4,9 +4,6 @@
 Behavior:
 */
 
-echo(dirname(__DIR__));
-exit;
-
 // TODO: Add exit on get if not admin
 // Prevent POSTS not from correct origin
 
