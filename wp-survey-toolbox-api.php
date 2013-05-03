@@ -35,9 +35,10 @@ if ($verb == "POST") {
 		$val = $request["val"];
 
 		//echo json_encode($requestType);
-		echo "Added a " . $qType . " to the database";
-		echo "\n";
-		echo "Question text: " . json_encode($val);
+		// echo "Added a " . $qType . " to the database";
+		// echo "\n";
+		// echo "Question text: " . json_encode($val);
+		echo json_encode(true);
 	
 	} else { // $requestType == "s" ... Create or update a survey
 		
