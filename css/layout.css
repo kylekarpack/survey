@@ -6,5 +6,12 @@ body {
     padding:0px;
 }
 #container {
-    
+    width:500px;
+    margin:30px auto 0 auto;
+    padding:2px;
+}
+.question {
+    border:1px solid #CCC;
+    padding:5px;
+    margin-bottom:15px;
 }

@@ -1,0 +1,35 @@
+
+root { 
+    display: block;
+}
+body {
+    margin:0px;
+    padding:0px;
+}
+#container {
+    width:500px;
+    margin:30px auto 0 auto;
+    padding:2px;
+    text-align:center;
+}
+#add-question {
+    cursor:pointer;
+}
+.question {
+    border:1px solid #CCC;
+    padding:5px;
+    margin-bottom:15px;
+    text-align:left;
+}
+.cancel-question, .save-question {
+    cursor:pointer;
+    float:right;
+    margin-left:5px;
+}
+.q-action-box {
+    margin-top:10px;
+    display:none;
+}
+    .q-action {
+        display:none;   
+    }

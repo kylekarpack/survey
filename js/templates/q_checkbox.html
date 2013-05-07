@@ -1,0 +1,8 @@
+<div class="question q-<%- type %>" id="<%- qid %>">
+    <%- toUpper(question) %> <br />
+    <form>
+        <% _.each(answers, function(val) { %>
+        <input type="checkbox" name="checkbox" > <%= toUpper(val) %> <br />
+        <%  }); %>
+    </form>
+</div>

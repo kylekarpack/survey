@@ -11,15 +11,14 @@ require.config({
         }
     },
     paths: {
-        'templates': "../../templates",
+        'templates': "../templates",
         'app': "../app"
     },
     baseUrl: 'js/libs'
 });
 
 //the "main" function to bootstrap your code
-require(['jquery', 'underscore', 'backbone', 'text', 'app'], function ($, _, Backbone, TEXT) {   // or, you could use these deps in a separate module using define
-    var app = App;
-    app.init();
+require(['jquery', 'underscore', 'backbone', 'text', 'app/survey_build'], function ($, _, Backbone, TEXT, appEngine) {   // or, you could use these deps in a separate module using define
+    BuildSurvey.init();
 });
 
