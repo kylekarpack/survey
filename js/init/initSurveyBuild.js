@@ -1,4 +1,4 @@
-
+//var STBurl = "http://localhost/wp-survey-toolbox/wp-content/plugins/wp-survey-toolbox/js"
 
 require.config({
     shim: {
