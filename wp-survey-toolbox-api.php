@@ -11,6 +11,9 @@ Behavior:
 define( 'SHORTINIT', true );
 require_once( dirname(dirname(dirname(dirname(__FILE__)))) . '/wp-load.php' );
 
+header('Content-type: application/json');
+
+
 global $wpdb;
 
 //var_dump ($_SERVER);
@@ -47,6 +50,7 @@ if ($verb == "POST") {
 					)
 		);
 		
+		// And the foreign key to the lookup table
 		$wpdb->query(
 					$wpdb->prepare(
 							"
@@ -65,15 +69,63 @@ if ($verb == "POST") {
 	
 	} else { // $requestType == "s" ... Create or update a survey
 		
+		$sid = $request["sid"];
+		$title = $request["title"];
+		
+		$wpdb->query(
+					$wpdb->prepare(
+							"
+							INSERT INTO " . $wpdb->prefix . "wp_survey_toolbox_questions
+							 VALUES (%d, %s)
+							",
+							$sid, $title
+					)
+		);
 	}
 	
 } elseif ($verb == "GET" ) {
-	$allQuestions = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "wp_survey_toolbox_questions");
-	header('Content-type: application/json');
-	echo json_encode($allQuestions);
-	//var_dump ($_SERVER);
+	
+	if ($_GET["create"] == "q") {
+		$allQuestions = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "wp_survey_toolbox_questions");
+		echo json_encode($allQuestions);
+		//var_dump ($_SERVER);
+	} else {
+		$allSurveys = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "wp_survey_toolbox_surveys");
+		echo json_encode($allSurveys);
+	}
+	
+	
 } elseif ($verb == "DELETE") {
-	echo "delete not yet functional";
+	
+	$requestType = $_DELETE["create"];
+	$id =  $_DELETE["id"];
+	
+	// Delete a question
+	if ($requestType == "q") {
+		$wpdb->query( 
+			$wpdb->prepare( 
+				"
+				DELETE FROM " . $wpdb->prefix . "wp_survey_toolbox_questions
+				 WHERE qid = %d
+				",
+					$id
+				)
+		);
+		
+	
+	// Delete a survey
+	} else {
+		$wpdb->query( 
+			$wpdb->prepare( 
+				"
+				DELETE FROM " . $wpdb->prefix . "wp_survey_toolbox_surveys
+				 WHERE sid = %d
+				",
+					$id
+				)
+		);
+	}
+	echo true; // Validate for Backbone
 	
 }
 
