@@ -84,6 +84,8 @@ if ($verb == "POST") {
 	}
 	
 } elseif ($verb == "GET" ) {
+	// TODO: Add limiting
+	$limit = isset($_GET["limit"]) ? intval($_GET["limit"]) : 18446744073709551615;
 	
 	if ($_GET["create"] == "q") {
 		$allQuestions = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "wp_survey_toolbox_questions");
