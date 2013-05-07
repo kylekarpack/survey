@@ -19,6 +19,7 @@ var BuildSurvey = {
         var Q = Backbone.Model.extend({
             defaults: {
                 create: "q",
+                sid: null,
                 type: null,
                 question: null,
                 answers: []

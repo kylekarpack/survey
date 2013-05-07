@@ -14,7 +14,7 @@ require.config({
         'templates': "../templates",
         'app': "../app"
     },
-    baseUrl: 'js/libs'
+    baseUrl: STBroot+'js/libs'
 });
 
 //the "main" function to bootstrap your code
