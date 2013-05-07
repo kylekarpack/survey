@@ -34,9 +34,10 @@ if ($verb == "POST") {
 	
 		$qid = $request["qid"];
 		$sid = $request["sid"];
+		//$sid = $request["sid"] != null ? :
 		$qType = $request["type"];
-		$text = $request["text"];
-		$answers = $request["answers"];
+		$text = $request["question"];
+		$answers = serialize($request["answers"]);
 		//$val = $request["val"];
 
 		// Insert the question into the database
@@ -87,15 +88,33 @@ if ($verb == "POST") {
 	// TODO: Add limiting
 	$limit = isset($_GET["limit"]) ? intval($_GET["limit"]) : 18446744073709551615;
 	
-	if ($_GET["create"] == "q") {
-		$allQuestions = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "wp_survey_toolbox_questions");
+	// GET A SPECIFIC SURVEY
+	// GET ALL SURVEY
+	// GET ALL QUESTIONS IN A SURVEY
+	if (isset($_GET["sid"])) {
+		$sid = $_GET["sid"];
+		$questions = $wpdb->get_results(
+							$wpdb->prepare(
+								"
+								SELECT * FROM " . $wpdb->prefix . "wp_survey_toolbox_questions q
+								JOIN devlocal_wp_survey_toolbox_lookup l
+								ON l.qid = q.qid
+								WHERE l.sid = %d
+								",
+								$sid						
+							)
+						);
+		echo json_encode($questions);
+	} else {
+		$allQuestions = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "wp_survey_toolbox_surveys");
 		echo json_encode($allQuestions);
 		//var_dump ($_SERVER);
-	} else {
-		$allSurveys = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "wp_survey_toolbox_surveys");
-		echo json_encode($allSurveys);
-	}
 	
+	}
+		// } else { //echo all surveys
+			// $allSurveys = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "wp_survey_toolbox_surveys");
+			// echo json_encode($allSurveys);
+		// }	
 	
 } elseif ($verb == "DELETE") {
 	
