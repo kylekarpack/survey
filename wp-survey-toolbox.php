@@ -115,6 +115,7 @@ function surveytoolbox_menu() {
 		add_submenu_page('wp-survey-toolbox/wp-survey-toolbox-manager.php', 'See Results', 'See Results', 'activate_plugins', 'wp-survey-toolbox/wp-survey-toolbox-results.php');
 		add_submenu_page('wp-survey-toolbox/wp-survey-toolbox-manager.php', 'Settings', 'Settings', 'activate_plugins', 'wp-survey-toolbox/wp-survey-toolbox-settings.php');
 		add_submenu_page('wp-survey-toolbox/wp-survey-toolbox-manager.php', 'API', 'API', 'activate_plugins', 'wp-survey-toolbox/wp-survey-toolbox-api.php');
+		add_submenu_page('wp-survey-toolbox/wp-survey-toolbox-manager.php', 'Test', 'Test', 'activate_plugins', 'wp-survey-toolbox/build_survey.php');
 	}
 }
 	
