@@ -27,12 +27,35 @@ if ($verb == "POST") {
 
 	$requestType = $request["create"];
 	
+	if ($requestType == "q") { // Create or update a question
 	
-	if ($requestType == "q") { // Create or update a	  question
-	
-		$qType = $request["type"];
+		$qid = $request["qid"];
 		$sid = $request["sid"];
-		$val = $request["val"];
+		$qType = $request["type"];
+		$text = $request["text"];
+		$answers = $request["answers"];
+		//$val = $request["val"];
+
+		// Insert the question into the database
+		$wpdb->query(
+					$wpdb->prepare(
+							"
+							INSERT INTO " . $wpdb->prefix . "wp_survey_toolbox_questions
+							 VALUES (%d, %s, %s, %s)
+							",
+							$qid, $text, $qType, $answers
+					)
+		);
+		
+		$wpdb->query(
+					$wpdb->prepare(
+							"
+							INSERT INTO " . $wpdb->prefix . "wp_survey_toolbox_lookup
+							 VALUES (%d, %d)
+							",
+							$sid, $qid
+					)
+		);
 
 		//echo json_encode($requestType);
 		// echo "Added a " . $qType . " to the database";
@@ -51,6 +74,7 @@ if ($verb == "POST") {
 	//var_dump ($_SERVER);
 } elseif ($verb == "DELETE") {
 	echo "delete not yet functional";
+	
 }
 
 //header('Content-Type: application/json');
