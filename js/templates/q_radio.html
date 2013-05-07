@@ -1,0 +1,9 @@
+<div class="question q-<%- type %>" id="<%- qid %>">
+    <%- toUpper(question) %> <br />
+    <form>
+        <% _.each(answers, function(val) { %>
+        <input type="radio" name="radio"> <%= toUpper(val) %> <br />
+        <%  }); %>
+    </form>
+</div>
+
