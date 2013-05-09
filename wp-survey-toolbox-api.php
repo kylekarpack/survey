@@ -80,7 +80,7 @@ if ($verb == "POST") {
 		);
 		
 		$ret = $wpdb->get_var("SELECT sid FROM " . $wpdb->prefix . "wp_survey_toolbox_surveys ORDER BY sid DESC LIMIT 1;"); // this could be better?
-		echo json_encode($ret); // return an int giving the current survey id	
+		echo "{" .json_encode($ret) . "}"; // return an int giving the current survey id
 	}
 	
 } elseif ($verb == "GET" ) {
