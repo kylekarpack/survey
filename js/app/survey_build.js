@@ -76,12 +76,14 @@ var BuildSurvey = {
             },
             saveSurvey: function() {
                 var this_ = this;
-                this.model.save({success: function(m, r) {
-                        this_.attributes.sid = r.sid;
+                this.model.save(this.model.attributes, {success: function(m, r) {
+                        this_.model.attributes.sid = r.sid;
                         questions.each(function(q) {
                             q.attributes.sid = r.sid;
                             q.save();
                         })
+                }, error: function() {
+                    console.log("fuck");
                 }});
             }
         });
