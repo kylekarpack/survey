@@ -42,12 +42,10 @@ var BuildSurvey = {
 
         var S = Backbone.Model.extend({
             defaults: {
-                create: "s",
-                sid: null,
                 title: null,
                 description: null
             },
-            url: "",
+            url:STBroot+stburl,
             initialize: function() {
                 var v = new SurveyMetaView({model: this});
             }
@@ -79,9 +77,9 @@ var BuildSurvey = {
             saveSurvey: function() {
                 var this_ = this;
                 this.model.save({success: function(m, r) {
-                        this_.attributes.sid = r;
+                        this_.attributes.sid = r.sid;
                         questions.each(function(q) {
-                            q.attributes.sid = r;
+                            q.attributes.sid = r.sid;
                             q.save();
                         })
                 }});
@@ -94,8 +92,6 @@ var BuildSurvey = {
         
         var Q = Backbone.Model.extend({
             defaults: {
-                create: "q",
-                sid: null,
                 index: null,
                 type: "blank",
                 question: null,

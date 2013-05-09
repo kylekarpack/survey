@@ -114,7 +114,7 @@ button:active {
         }
     .action-shortanswer-text {
         width:100%;
-        margin-left:-1px;
+        margin-left:0;
         padding:10px;
         color:#999 !important;
     }
