@@ -107,43 +107,41 @@ if ($verb == "POST") {
 						);
 		echo json_encode($questions);
 	} else {
-		$allQuestions = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "wp_survey_toolbox_surveys");
-		echo json_encode($allQuestions);
-		//var_dump ($_SERVER);
-	
+		$allSurveys = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "wp_survey_toolbox_surveys");
+		echo json_encode($allSurveys);
 	}
-		// } else { //echo all surveys
-			// $allSurveys = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "wp_survey_toolbox_surveys");
-			// echo json_encode($allSurveys);
-		// }	
+	
 	
 } elseif ($verb == "DELETE") {
 	
 	$requestType = $_DELETE["create"];
-	$id =  $_DELETE["id"];
 	
 	// Delete a question
-	if ($requestType == "q") {
+	if (isset($_DELETE["qid"])) {
+		$qid =  $_DELETE["qid"];
+
 		$wpdb->query( 
 			$wpdb->prepare( 
 				"
 				DELETE FROM " . $wpdb->prefix . "wp_survey_toolbox_questions
 				 WHERE qid = %d
 				",
-					$id
+					$qid
 				)
 		);
 		
 	
 	// Delete a survey
 	} else {
+		$sid =  $_DELETE["sid"];
+
 		$wpdb->query( 
 			$wpdb->prepare( 
 				"
 				DELETE FROM " . $wpdb->prefix . "wp_survey_toolbox_surveys
 				 WHERE sid = %d
 				",
-					$id
+					$sid
 				)
 		);
 	}
