@@ -18,7 +18,7 @@ require.config({
 });
 
 //the "main" function to bootstrap your code
-require(['jquery', 'underscore', 'backbone', 'text', 'app/survey_build'], function ($, _, Backbone, TEXT, appEngine) {   // or, you could use these deps in a separate module using define
+require(['jquery', 'jquery-ui', 'underscore', 'backbone', 'text', 'app/survey_build'], function ($, ui, _, Backbone, TEXT, appEngine) {   // or, you could use these deps in a separate module using define
     BuildSurvey.init();
 });
 

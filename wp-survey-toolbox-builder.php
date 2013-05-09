@@ -7,6 +7,9 @@
 
 <body>
     <div id="container">
+        <div id="title-box">
+            <input id="survey-title" placeholder="Survey Title" type="text" size="44" />
+        </div>
         <div id="question-container">
         </div>
         <button id="add-question" type="button">New Question</button>
