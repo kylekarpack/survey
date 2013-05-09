@@ -9,7 +9,7 @@ Behavior:
 
 // Load up WordPress functionality
 define( 'SHORTINIT', true );
-require_once( dirname(dirname(dirname(dirname(__FILE__)))) . '/wp-load.php' );
+require_once( dirname(dirname(dirname(dirname(__FILE__)))) . '/wp-load.php' ); // A bit hacky, is there a better way?
 
 header('Content-type: application/json');
 
