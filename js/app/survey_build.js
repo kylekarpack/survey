@@ -270,7 +270,7 @@ var BuildSurvey = {
                             var html = _.template(tmplt, data);
                             this_.div.find('.q-render').html(html);
                             this_.div.find('.q-render-box').show();
-                            this_.div.attr({title:"Click to edit & drag to reorder"});
+                            this_.div.attr({title:"Click to edit\n&\nDrag to reorder"});
                             indexQ();
                             this_.saved = true;
                         });
