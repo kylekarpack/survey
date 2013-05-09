@@ -13,7 +13,6 @@ require_once( dirname(dirname(dirname(dirname(__FILE__)))) . '/wp-load.php' ); /
 
 header('Content-type: application/json');
 
-
 global $wpdb;
 
 //var_dump ($_SERVER);
@@ -30,11 +29,12 @@ if ($verb == "POST") {
 
 	$requestType = $request["create"];
 	
-	if ($requestType == "q") { // Create or update a question
+	// If the survey id is set, add a question to it (else create the survey
+	if (isset($request["sid"])) { // Create or update a question
 	
+		$sid = $request["sid"];		
+		
 		$qid = $request["qid"];
-		$sid = $request["sid"];
-		//$sid = $request["sid"] != null ? :
 		$qType = $request["type"];
 		$text = $request["question"];
 		$answers = serialize($request["answers"]);
@@ -64,20 +64,23 @@ if ($verb == "POST") {
 		echo json_encode(array("question created" => true)); // For a valid Backbone response
 	
 	
-	} else { // $requestType == "s" ... Create or update a survey
-		
+	} else { // Create a survey. Return a JSON-encoded sid to the front end
+			
 		$sid = $request["sid"];
-		$title = $request["title"];
+		$title = isset($request["title"]) ? $request["title"] : "";
 		
 		$wpdb->query(
 					$wpdb->prepare(
 							"
-							INSERT INTO " . $wpdb->prefix . "wp_survey_toolbox_questions
+							INSERT INTO " . $wpdb->prefix . "wp_survey_toolbox_surveys
 							 VALUES (%d, %s)
 							",
 							$sid, $title
 					)
 		);
+		
+		$ret = $wpdb->get_var("SELECT sid FROM " . $wpdb->prefix . "wp_survey_toolbox_surveys ORDER BY sid DESC LIMIT 1;"); // this could be better?
+		echo json_encode($ret); // return an int giving the current survey id	
 	}
 	
 } elseif ($verb == "GET" ) {

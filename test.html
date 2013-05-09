@@ -1,0 +1,22 @@
+<head>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	
+</head>
+
+<body>
+
+</body>
+
+<script>
+	jQuery.ajax({
+			type: "POST",
+			url: "http://localhost/wp-survey-toolbox/wp-content/plugins/wp-survey-toolbox/wp-survey-toolbox-api.php",
+			data: {"create": "q", "sid":null, "title":"hi" },
+		
+		}, function(data) {
+			console.log(data);
+		} 
+		
+		);
+	
+</script>
