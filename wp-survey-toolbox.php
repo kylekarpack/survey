@@ -76,7 +76,7 @@ function toolbox_install() {
 	// Lookup table
 	$create_tbl_lookup = "CREATE TABLE " . $wpdb->prefix . "wp_survey_toolbox_lookup (
 	  sid mediumint(9) NOT NULL,
-	  qid mediumint(9) NOT NULL
+	  qid mediumint(9) NOT NULL,
 	  index mediumint(9) NOT NULL
 	);";
 	
