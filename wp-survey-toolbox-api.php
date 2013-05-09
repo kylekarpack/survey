@@ -61,12 +61,8 @@ if ($verb == "POST") {
 							$sid, $qid
 					)
 		);
-
-		//echo json_encode($requestType);
-		// echo "Added a " . $qType . " to the database";
-		// echo "\n";
-		// echo "Question text: " . json_encode($val);
-		echo json_encode(true);
+		echo json_encode(array("question created" => true)); // For a valid Backbone response
+	
 	
 	} else { // $requestType == "s" ... Create or update a survey
 		
