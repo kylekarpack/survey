@@ -35,6 +35,7 @@ if ($verb == "POST") {
 		$sid = $request["sid"];		
 		
 		$qid = $request["qid"];
+		$index = $request["index"];
 		$qType = $request["type"];
 		$text = $request["question"];
 		$answers = serialize($request["answers"]);
@@ -56,9 +57,9 @@ if ($verb == "POST") {
 					$wpdb->prepare(
 							"
 							INSERT INTO " . $wpdb->prefix . "wp_survey_toolbox_lookup
-							 VALUES (%d, %d)
+							 VALUES (%d, %d, %d)
 							",
-							$sid, $qid
+							$sid, $qid, $index
 					)
 		);
 		echo json_encode(array("question created" => true)); // For a valid Backbone response
