@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<!--[if IE 8]>
+<html xmlns="http://www.w3.org/1999/xhtml" class="ie8 wp-toolbar"  lang="en-US">
+<![endif]-->
+<!--[if !(IE 8) ]><!-->
+<html xmlns="http://www.w3.org/1999/xhtml" class="wp-toolbar" lang="en-US"><!--<![endif]--><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Survey Toolbox: Manage Surveys</title>
+<script type="text/javascript">
+addLoadEvent = function(func){if(typeof jQuery!="undefined")jQuery(document).ready(func);else if(typeof wpOnload!='function'){wpOnload=func;}else{var oldonload=wpOnload;wpOnload=function(){oldonload();func();}}};
+var ajaxurl = '/survey/wp-playground/wp-admin/admin-ajax.php',
+	pagenow = 'toplevel_page_wpcf7',
+	typenow = '',
+	adminpage = 'toplevel_page_wpcf7',
+	thousandsSeparator = ',',
+	decimalPoint = '.',
+	isRtl = 0;
+</script>
+<link rel="stylesheet" href="files/load-styles.css" type="text/css" media="all">
+<link rel="stylesheet" id="wpsqt-main-css" href="files/main.css" type="text/css" media="all">
+<link rel="stylesheet" id="colors-css" href="files/colors-fresh.css" type="text/css" media="all">
+<!--[if lte IE 7]>
+<link rel='stylesheet' id='ie-css'  href='http://kylekarpack.com/survey/wp-playground/wp-admin/css/ie.min.css?ver=3.5.1' type='text/css' media='all' />
+<![endif]-->
+<link rel="stylesheet" id="thickbox-css" href="files/thickbox.css" type="text/css" media="all">
+<link rel="stylesheet" id="contact-form-7-admin-css" href="files/styles.css" type="text/css" media="all">
+
+<script type="text/javascript">
+/* <![CDATA[ */
+var userSettings = {"url":"\/survey\/wp-playground\/","uid":"1","time":"1367468871"};/* ]]> */
+</script>
+<script type="text/javascript" src="files/load-scripts.js"></script>
+<script type="text/javascript" src="files/site.js"></script>
+<style type="text/css" media="print">#wpadminbar { display:none; }</style>
+</head>
+
+<body class="wp-admin wp-core-ui js  toplevel_page_wpcf7 auto-fold admin-bar branch-3-5 version-3-5-1 admin-color-fresh locale-en-us no-customize-support">
+<script type="text/javascript">
+	document.body.className = document.body.className.replace('no-js','js');
+</script>
+
+
+<div id="wpwrap">
+<a tabindex="1" href="#wpbody-content" class="screen-reader-shortcut">Skip to main content</a>
+
+<div id="wpcontent">
+		
+<div id="wpbody">
+
+<div style="overflow: hidden;" id="wpbody-content" aria-label="Main content" tabindex="0">
+		<div id="screen-meta" class="metabox-prefs">
+			<div id="contextual-help-wrap" class="hidden no-sidebar" tabindex="-1" aria-label="Contextual Help Tab">
+				<div id="contextual-help-back"></div>
+				<div id="contextual-help-columns">
+					<div class="contextual-help-tabs">
+						<ul>
+												</ul>
+					</div>
+
+					
+					<div class="contextual-help-tabs-wrap">
+											</div>
+				</div>
+			</div>
+			<div id="screen-options-wrap" class="hidden" tabindex="-1" aria-label="Screen Options Tab">
+				<form id="adv-settings" action="" method="post">
+					<h5>Show on screen</h5>
+					<div class="metabox-prefs">
+						<label for="opened-hide"><input class="hide-column-tog" name="opened-hide" id="opened-hide" value="opened" checked="checked" type="checkbox">Opened Date</label>
+                        <label for="closed-hide"><input class="hide-column-tog" name="closed-hide" id="closed-hide" value="closed" checked="checked" type="checkbox">Closed Date</label>
+                        <label for="author-hide"><input class="hide-column-tog" name="author-hide" id="author-hide" value="author" checked="checked" type="checkbox">Author</label>
+						<br class="clear">
+					</div>
+					<div class="screen-options">
+						<input step="1" min="1" max="999" class="screen-per-page" name="wp_screen_options[value]" id="stb_surveys_per_page" maxlength="3" value="20" type="number">
+						<label for="stb_surveys_per_page">Surveys</label>
+						<input name="screen-options-apply" id="screen-options-apply" class="button" value="Apply" type="submit">			
+                        <input name="wp_screen_options[option]" value="stb_surveys_per_page" type="hidden">
+					</div>
+					<div><input id="screenoptionnonce" name="screenoptionnonce" value="f79ee47fc8" type="hidden"></div>
+				</form>
+			</div>
+		</div>
+		<div id="screen-meta-links">
+			<div id="screen-options-link-wrap" class="hide-if-no-js screen-meta-toggle">
+				<a href="#screen-options-wrap" id="show-settings-link" class="show-settings" aria-controls="screen-options-wrap" aria-expanded="false">Screen Options</a>
+			</div>
+		</div>
+		<div class="wrap">
+			<h2>Survey Toolbox <a href="#TB_inline?height=300&amp;width=400&amp;inlineId=wpcf7-lang-select-modal" class="add-new-h2 thickbox">Build Survey</a></h2>
+        	<form method="get" action="">
+                <input name="page" value="wpcf7" type="hidden">
+                <p class="search-box">
+                <label class="screen-reader-text" for="wpcf7-contact-search-input">Search Surveys:</label>
+                <input id="wpcf7-contact-search-input" name="s" type="search">
+                <input name="" id="search-submit" class="button" value="Search Surveys" type="submit"></p>
+                <input id="_wpnonce" name="_wpnonce" value="4ce10fb6c1" type="hidden"><input name="_wp_http_referer" value="/survey/wp-playground/wp-admin/admin.php?page=wpcf7" type="hidden">
+                <div class="tablenav top">
+                    <div class="alignleft actions">
+                        <select name="action">
+                            <option value="-1" selected="selected">Bulk Actions</option>
+                            <option value="delete">Delete</option>
+                            <option value="archive">Archive</option>
+                        </select>
+                        <input name="" id="doaction" class="button action" value="Apply" type="submit">
+                    </div>
+                    <div class="tablenav-pages one-page">
+						<span class="pagination-links">
+                        	<a class="first-page disabled" title="Go to the first page" href="#">«</a>
+							<a class="prev-page disabled" title="Go to the previous page" href="#">‹</a>
+							<span class="paging-input"><input class="current-page" title="Current page" name="paged" value="1" size="1" type="text"> of <span class="total-pages">1</span></span>
+							<a class="next-page disabled" title="Go to the next page" href="#">›</a>
+							<a class="last-page disabled" title="Go to the last page" href="#">»</a>
+                        </span>
+                    </div>
+					<br class="clear">
+				</div>
+                
+				<table class="wp-list-table widefat fixed posts" cellspacing="0">
+					<thead>
+						<tr>
+							<th scope="col" id="cb" class="manage-column column-cb check-column" style=""><label class="screen-reader-text" for="cb-select-all-1">Select All</label><input id="cb-select-all-1" type="checkbox"></th>
+                            <th scope="col" id="title" class="manage-column column-title sortable asc" style=""><a href="#"><span>Survey Name</span><span class="sorting-indicator"></span></a></th>
+                            <th scope="col" id="opened" class="manage-column column-opened sortable desc" style=""><a href="#"><span>Open Date</span><span class="sorting-indicator"></span></a></th>
+                            <th scope="col" id="closed" class="manage-column column-closed sortable desc" style=""><a href="#"><span>Close Date</span><span class="sorting-indicator"></span></a></th>
+                            <th scope="col" id="author" class="manage-column column-author sortable desc" style=""><a href="#"><span>Author</span><span class="sorting-indicator"></span></a></th>
+                            <th scope="col" id="results" class="manage-column column-results" style="">Results</th>
+                            <th scope="col" id="status" class="manage-column column-status" style="">Status</th>
+                       	</tr>
+					</thead>
+
+					<tfoot>
+						<tr>
+							<th scope="col" class="manage-column column-cb check-column" style=""><label class="screen-reader-text" for="cb-select-all-2">Select All</label><input id="cb-select-all-2" type="checkbox"></th>
+                            <th scope="col" class="manage-column column-title sortable asc" style=""><a href="#"><span>Survey Name</span><span class="sorting-indicator"></span></a></th>
+                            <th scope="col" class="manage-column column-opened sortable asc" style=""><a href="#"><span>Open Date</span><span class="sorting-indicator"></span></a></th>
+                            <th scope="col" class="manage-column column-closed sortable asc" style=""><a href="#"><span>Close Date</span><span class="sorting-indicator"></span></a></th>
+                            <th scope="col" class="manage-column column-author sortable asc" style=""><a href="#"><span>Author</span><span class="sorting-indicator"></span></a></th>
+                            <th scope="col" id="results" class="manage-column column-results" style="">Results</th>
+                            <th scope="col" id="status" class="manage-column column-status" style="">Status</th>
+                        </tr>
+					</tfoot>
+
+					<tbody id="the-list" data-wp-lists="list:post">
+						<tr class="alternate">
+                        	<th scope="row" class="check-column"><input name="post[]" value="4" type="checkbox"></th>
+                            <td class="title column-title"><strong><a class="row-title" href="#" title="Edit “Survey 1”">Survey 1</a></strong> <div class="row-actions"><span class="edit"><a href="#">Edit</a> | </span><span class="copy"><a href="#">Copy</a> | </span><span class="publish"><a href="#">Publish</a></span></div></td>
+                            <td class="opened column-opened"><abbr title="2013/04/15 2:11:05 PM">2013/04/15</abbr></td>
+                            <td class="closed column-closed"><abbr title="2013/04/25 10:31:45 AM">2013/04/25</abbr></td>
+                            <td class="author column-author">admin1</td>
+                            <td class="author column-results">icon | icon 72</td>
+                            <td class="author column-status">Active</td>
+                        </tr>
+                        
+                        <tr class="alternate">
+                        	<th scope="row" class="check-column"><input name="post[]" value="4" type="checkbox"></th>
+                            <td class="title column-title"><strong><a class="row-title" href="#" title="Edit “Survey 2”">Survey 2</a></strong> <div class="row-actions"><span class="edit"><a href="#">Edit</a> | </span><span class="copy"><a href="#">Copy</a> | </span><span class="publish"><a href="#">Publish</a></span></div></td>
+                            <td class="opened column-opened"><abbr title="2013/04/01 2:11:05 PM">2013/04/01</abbr></td>
+                            <td class="closed column-closed"><input name="stb-close-survey" id="stb-close-survey-2" class="button" value="Close" type="submit"></td>
+                            <td class="author column-author">admin2</td>
+                            <td class="author column-results">icon | icon 81/120</td>
+                            <td class="author column-status">Active</td>
+                        </tr>
+                        
+                        <tr class="alternate">
+                        	<th scope="row" class="check-column"><input name="post[]" value="4" type="checkbox"></th>
+                            <td class="title column-title"><strong><a class="row-title" href="#" title="Edit “Survey 3”">Survey 3</a></strong> <div class="row-actions"><span class="edit"><a href="#">Edit</a> | </span><span class="copy"><a href="#">Copy</a> | </span><span class="publish"><a href="#">Publish</a></span></div></td>
+                            <td class="opened column-opened"><abbr title="2013/03/26 2:11:05 PM">2013/03/26</abbr></td>
+                            <td class="closed column-closed"><input name="stb-close-survey" id="stb-close-survey-3" class="button" value="Close" type="submit"></td>
+                            <td class="author column-author">admin1</td>
+                            <td class="author column-results">icon | icon 37</td>
+                            <td class="author column-status">Active</td>
+                        </tr>    
+                                        
+						<tr class="alternate">
+                        	<th scope="row" class="check-column"><input name="post[]" value="4" type="checkbox"></th>
+                            <td class="title column-title"><strong><a class="row-title" href="#" title="Edit “Survey 4”">Survey 4</a></strong> <div class="row-actions"><span class="edit"><a href="#">Edit</a> | </span><span class="copy"><a href="#">Copy</a> | </span><span class="publish"><a href="#">Publish</a></span></div></td>
+                            <td class="opened column-opened"><abbr title="2013/04/15 2:11:05 PM">2013/04/29</abbr></td>
+                            <td class="closed column-closed"><abbr title="2013/04/25 10:31:45 AM">2013/04/20</abbr></td>
+                            <td class="author column-author">admin2</td>
+                            <td class="author column-results">icon | icon 0</td>
+                            <td class="author column-status">Under Construction</td>
+                        </tr>
+                        
+                        <tr class="alternate">
+                        	<th scope="row" class="check-column"><input name="post[]" value="4" type="checkbox"></th>
+                            <td class="title column-title"><strong><a class="row-title" href="#" title="Edit “Survey 5”">Survey 5</a></strong> <div class="row-actions"><span class="edit"><a href="#">Edit</a> | </span><span class="copy"><a href="#">Copy</a> | </span><span class="publish"><a href="#">Publish</a></span></div></td>
+                            <td class="opened column-opened"><input name="stb-open-survey" id="stb-open-survey-5" class="button" value="Open" type="submit"></td>
+                            <td class="closed column-closed"><input name="stb-close-survey" id="stb-close-survey-5" class="button" value="Close" type="submit"></td>
+                            <td class="author column-author">admin2</td>
+                            <td class="author column-results">icon | icon 0</td>
+                            <td class="author column-status">Under Construction</td>
+                        </tr>
+                        
+                        <tr class="alternate">
+                        	<th scope="row" class="check-column"><input name="post[]" value="4" type="checkbox"></th>
+                            <td class="title column-title"><strong><a class="row-title" href="#" title="Edit “Survey 6”">Survey 6</a></strong> <div class="row-actions"><span class="edit"><a href="#">Edit</a> | </span><span class="copy"><a href="#">Copy</a> | </span><span class="publish"><a href="#">Publish</a></span></div></td>
+                            <td class="opened column-opened"><abbr title="2013/03/26 2:11:05 PM">2013/03/26</abbr></td>
+                            <td class="closed column-closed"><input name="stb-close-survey" id="stb-close-survey-6" class="button" value="Close" type="submit"></td>
+                            <td class="author column-author">admin1</td>
+                            <td class="author column-results">icon | icon 0</td>
+                            <td class="author column-status">Under Construction</td>
+                        </tr>
+                        
+						<tr class="alternate">
+                        	<th scope="row" class="check-column"><input name="post[]" value="4" type="checkbox"></th>
+                            <td class="title column-title"><strong><a class="row-title" href="#" title="Edit “Survey 7”">Survey 7</a></strong> <div class="row-actions"><span class="edit"><a href="#">Edit</a> | </span><span class="copy"><a href="#">Copy</a> | </span><span class="publish"><a href="#">Publish</a></span></div></td>
+                            <td class="opened column-opened"><abbr title="2013/04/15 2:11:05 PM">2013/04/15</abbr></td>
+                            <td class="closed column-closed"><abbr title="2013/04/25 10:31:45 AM">2013/04/25</abbr></td>
+                            <td class="author column-author">admin1</td>
+                            <td class="author column-results">icon | icon 72s</td>
+                            <td class="author column-status">Closed</td>
+                        </tr>
+                        
+                        <tr class="alternate">
+                        	<th scope="row" class="check-column"><input name="post[]" value="4" type="checkbox"></th>
+                            <td class="title column-title"><strong><a class="row-title" href="#" title="Edit “Survey 8”">Survey 8</a></strong> <div class="row-actions"><span class="edit"><a href="#">Edit</a> | </span><span class="copy"><a href="#">Copy</a> | </span><span class="publish"><a href="#">Publish</a></span></div></td>
+                            <td class="opened column-opened"><abbr title="2013/04/01 2:11:05 PM">2013/04/01</abbr></td>
+                            <td class="closed column-closed"><input name="stb-close-survey" id="stb-close-survey-2" class="button" value="Close" type="submit"></td>
+                            <td class="author column-author">admin2</td>
+                            <td class="author column-results">icon | icon 81</td>
+                            <td class="author column-status">Closed</td>
+                        </tr>
+                        
+                        <tr class="alternate">
+                        	<th scope="row" class="check-column"><input name="post[]" value="4" type="checkbox"></th>
+                            <td class="title column-title"><strong><a class="row-title" href="#" title="Edit “Survey 9”">Survey 9</a></strong> <div class="row-actions"><span class="edit"><a href="#">Edit</a> | </span><span class="copy"><a href="#">Copy</a> | </span><span class="publish"><a href="#">Publish</a></span></div></td>
+                            <td class="opened column-opened"><abbr title="2013/03/26 2:11:05 PM">2013/03/26</abbr></td>
+                            <td class="closed column-closed"><input name="stb-close-survey" id="stb-close-survey-3" class="button" value="Close" type="submit"></td>
+                            <td class="author column-author">admin1</td>
+                            <td class="author column-results">icon | icon 37</td>
+                            <td class="author column-status">Closed</td>
+                        </tr>	
+                        
+                        <tr class="alternate">
+                        	<th scope="row" class="check-column"><input name="post[]" value="4" type="checkbox"></th>
+                            <td class="title column-title"><strong><a class="row-title" href="#" title="Edit “Survey 10”">Survey 10</a></strong> <div class="row-actions"><span class="edit"><a href="#">Edit</a> | </span><span class="copy"><a href="#">Copy</a> | </span><span class="publish"><a href="#">Publish</a></span></div></td>
+                            <td class="opened column-opened"><abbr title="2013/03/26 2:11:05 PM">2013/03/26</abbr></td>
+                            <td class="closed column-closed"><input name="stb-close-survey" id="stb-close-survey-3" class="button" value="Close" type="submit"></td>
+                            <td class="author column-author">admin1</td>
+                            <td class="author column-results">icon | icon 44/50</td>
+                            <td class="author column-respondents">Active</td>
+                        </tr>	
+                    </tbody>
+				</table>
+                <div class="tablenav bottom">
+					<div class="alignleft actions">
+						<select name="action2">
+							<option value="-1" selected="selected">Bulk Actions</option>
+							<option value="delete">Delete</option>
+                            <option value="archive">Archive</option>
+						</select>
+						<input name="" id="doaction2" class="button action" value="Apply" type="submit">
+					</div>
+					<div class="tablenav-pages one-page">
+						<span class="pagination-links">
+                        	<a class="first-page disabled" title="Go to the first page" href="#">«</a>
+							<a class="prev-page disabled" title="Go to the previous page" href="#">‹</a>
+							<span class="paging-input">1 of <span class="total-pages">1</span></span>
+							<a class="next-page disabled" title="Go to the next page" href="#">›</a>
+							<a class="last-page disabled" title="Go to the last page" href="#">»</a>
+                        </span>
+                    </div>
+					<br class="clear">
+				</div>
+			</form>
+
+		</div>
+
+<div class="clear"></div></div><!-- wpbody-content -->
+<div class="clear"></div></div><!-- wpbody -->
+<div class="clear"></div></div><!-- wpcontent -->
+
+<script type="text/javascript">
+/* <![CDATA[ */
+var _wpcf7 = {"screenId":"toplevel_page_wpcf7","generateTag":"Generate Tag","pluginUrl":"http:\/\/kylekarpack.com\/survey\/wp-playground\/wp-content\/plugins\/contact-form-7","tagGenerators":{"text":{"title":"Text field","content":"wpcf7-tg-pane-text"},"email":{"title":"Email","content":"wpcf7-tg-pane-email"},"url":{"title":"URL","content":"wpcf7-tg-pane-url"},"tel":{"title":"Telephone number","content":"wpcf7-tg-pane-tel"},"number":{"title":"Number (spinbox)","content":"wpcf7-tg-pane-number"},"range":{"title":"Number (slider)","content":"wpcf7-tg-pane-range"},"date":{"title":"Date","content":"wpcf7-tg-pane-date"},"textarea":{"title":"Text area","content":"wpcf7-tg-pane-textarea"},"menu":{"title":"Drop-down menu","content":"wpcf7-tg-pane-menu"},"checkbox":{"title":"Checkboxes","content":"wpcf7-tg-pane-checkbox"},"radio":{"title":"Radio buttons","content":"wpcf7-tg-pane-radio"},"acceptance":{"title":"Acceptance","content":"wpcf7-tg-pane-acceptance"},"quiz":{"title":"Quiz","content":"wpcf7-tg-pane-quiz"},"captcha":{"title":"CAPTCHA","content":"wpcf7-tg-pane-captcha"},"file":{"title":"File upload","content":"wpcf7-tg-pane-file"},"submit":{"nameless":1,"title":"Submit button","content":"wpcf7-tg-pane-submit"}}};
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+var commonL10n = {"warnDelete":"You are about to permanently delete the selected items.\n  'Cancel' to stop, 'OK' to delete."};var thickboxL10n = {"next":"Next >","prev":"< Prev","image":"Image","of":"of","close":"Close","noiframes":"This feature requires inline frames. You have iframes disabled or your browser does not support them.","loadingAnimation":"http:\/\/kylekarpack.com\/survey\/wp-playground\/wp-includes\/js\/thickbox\/loadingAnimation.gif","closeImage":"http:\/\/kylekarpack.com\/survey\/wp-playground\/wp-includes\/js\/thickbox\/tb-close.png"};/* ]]> */
+</script>
+<script type="text/javascript" src="files/load-scripts_002.js"></script>
+<script type="text/javascript" src="files/taggenerator.js"></script>
+<script type="text/javascript" src="files/scripts.js"></script>
+
+<div class="clear"></div></div><!-- wpwrap -->
+<script type="text/javascript">if(typeof wpOnload=='function')wpOnload();</script>
+
+
+</body></html>
