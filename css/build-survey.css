@@ -25,6 +25,13 @@ button:active {
     margin:30px auto 0 auto;
     padding:50px 60px 50px 60px;
     border:1px solid #CCC;
+    position:relative;
+    box-shadow:0 4px 10px rgba(0,0,0,.2);
+}
+#save-survey {
+    position:absolute;
+    bottom:5px;
+    right:5px;
 }
 #title-box {
     font-size:16px;
@@ -50,6 +57,7 @@ button:active {
     text-align:left;
     position:relative;
     border-radius:3px;
+    cursor:pointer;
 }
 .cancel-question, .save-question, .edit-question {
     cursor:pointer;
@@ -121,10 +129,12 @@ button:active {
 .q-render-box {
     display:none;
 }
-    
+
 .s-q-title {
     font-size:18px;
     margin:10px;
+    border-bottom:1px solid #CCC;
+    padding-bottom:5px;
 }
 .s-q-form {
     margin:0 10px 10px 10px;

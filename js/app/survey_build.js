@@ -2,28 +2,8 @@
 var BuildSurvey = {
     init: function() {                                                          console.log("App Initiated!");
         
-        window.questions = new Array();
         
-        $('#question-container').sortable({
-            stop: function(){indexQ()}
-        });
-        $('#add-question').animate({opacity:1}, 200).on("click", function() {
-            if (questions.length > 0) {
-                $.each(viewCollection, function(k,v) {
-                    v.save();
-                });
-            }
-            questions.push(new Q());
-        });
-        
-        var S = Backbone.Model.extend({
-            defaults: {
-                
-            },
-            initialize: {
-                
-            }
-        });
+        // Utility functions
         
         var util = {
             toUpper: function(str) {
@@ -34,9 +14,81 @@ var BuildSurvey = {
             $('.q-index').each(function() {
                 $(this).html((1+$(this).parents('.question').index()));
             });
+            $.each(viewCollection, function(k,v) {
+                v.updateIndex();
+            });
         }
-        
         var stburl = stburl || "wp-survey-toolbox-api.php";
+        
+        
+        
+        $('#question-container').sortable({
+            stop: function(){indexQ()}
+        });
+        $('#add-question').animate({opacity:1}, 200).on("click", function() {
+            if (questions.length > 0) {
+                $.each(viewCollection, function(k,v) {
+                    v.save();
+                });
+            }
+            questions.add([new Q()]);
+        });
+        
+        var QuestionsCollection = Backbone.Collection.extend({
+            model: Q
+        });
+        questions = new QuestionsCollection();
+        
+
+        var S = Backbone.Model.extend({
+            defaults: {
+                create: "s",
+                sid: null,
+                title: null,
+                description: null
+            },
+            url: "",
+            initialize: function() {
+                var v = new SurveyMetaView({model: this});
+            }
+        });
+        
+        var SurveyMetaView = Backbone.View.extend({
+            el:$('#container'),
+            initialize: function() {
+                var this_ = this;
+                require(['text!templates/s_main.html'], function(tmplt) {
+                    this_.tmplt = _.template(tmplt);
+                    this_.render();
+                });
+            },
+            events: {
+                "change input#survey-title": "updateTitle",
+                "click button#save-survey": "saveSurvey"
+            },
+            render: function() {
+                var data = this.model.attributes;
+                _.extend(data, util);
+                var html = this.tmplt(data);
+                this.$el.prepend(html);
+            },
+            updateTitle: function(event) {
+                this.model.set({title:$(event.currentTarget).val()});
+                console.log(this.model.attributes.title);
+            },
+            saveSurvey: function() {
+                var this_ = this;
+                this.model.save({success: function(m, r) {
+                        this_.attributes.sid = r;
+                        questions.each(function(q) {
+                            q.attributes.sid = r;
+                            q.save();
+                        })
+                }});
+            }
+        });
+        
+        var survey = new S();
         
         var viewCollection = [];
         
@@ -44,6 +96,7 @@ var BuildSurvey = {
             defaults: {
                 create: "q",
                 sid: null,
+                index: null,
                 type: "blank",
                 question: null,
                 answers: new Array()
@@ -64,6 +117,7 @@ var BuildSurvey = {
                     this_.tmplt = _.template(tmplt);
                     this_.render();
                     this_.div = $('#'+this_.cid);
+                    this_.model.set({index:this_.div.index()});
                     this_.checkboxTmplt = this_.div.find('.action-checkbox').html();
                     this_.radioTmplt = this_.div.find('.action-radio').html();
                     
@@ -74,7 +128,7 @@ var BuildSurvey = {
                 
                 this.events["click "+id+" button.save-question"] = "save";
                 this.events["click "+id+" button.cancel-question"] = "cancel";
-                this.events["click "+id+" button.edit-question"] = "edit";
+                this.events["click "+id] = "edit";
                 this.events["click "+id+" button.view-model"] = "logModelAttr";
                 
                 this.events["mouseenter "+id] = "showEditOptions";
@@ -116,7 +170,7 @@ var BuildSurvey = {
                 this.model.set({type: val});
             },
             addTextField: function(event) {
-                if (event.keyCode == 13) {
+                if (event.keyCode == 13 || event.keyCode == 9) {
                     $(event.currentTarget).siblings('.q-add-field').click();
                 }
             },
@@ -127,7 +181,7 @@ var BuildSurvey = {
                     this.div.find('.action-radio').append(this.radioTmplt);
                     this.div.find('.action-radio-tmplt:last')
                         .css({"margin-left":"40px", opacity:"0"})
-                        .animate({"margin-left":"0px", opacity:"1"}, 300)
+                        .animate({"margin-left":"0px", opacity:"1"}, 200, function() {$(this).find('.answer-field:last').focus()})
                       .find('.answer-field:last')
                         .focus();
                 } else {
@@ -149,7 +203,7 @@ var BuildSurvey = {
                     this.div.find('.action-checkbox').append(this.checkboxTmplt);
                     this.div.find('.action-checkbox-tmplt:last')
                         .css({"margin-left":"40px", opacity:"0"})
-                        .animate({"margin-left":"0px", opacity:"1"}, 300)
+                        .animate({"margin-left":"0px", opacity:"1"}, 200, function() {$(this).find('.answer-field:last').focus()})
                       .find('.answer-field:last')
                         .focus();
                 } else {
@@ -170,16 +224,24 @@ var BuildSurvey = {
             showEditOptions: function(event) {
                 if (event.type == "mouseenter") {
                     if (this.div.find('.q-render-box').is(":visible")) {
+                        this.div.css({background:"#F9F9F9", "border-color":"rgb(137, 175, 223)"});
                         this.div.find('.q-edit-box').stop(true, true).show();
                     }
                 } else {
-                    this.div.find('.q-edit-box').stop(true).fadeOut();
+                    this.div.css({background:"#FFF", "border-color":"#CCC"});
+                    this.div.find('.q-edit-box').stop(true).fadeOut("fast");
+                }
+            },
+            updateIndex: function() {
+                if (this.div) {
+                    var index = this.div.index();
+                    this.model.set({index:index});
                 }
             },
             cancel: function(event) {
                 $(event.currentTarget).parents('.question').remove();
                 viewCollection.splice(this.collID, 1);
-                questions.splice(this.collID, 1);
+                //questions.remove(this.collID, 1);
                 indexQ();
             },
             logModelAttr: function() {
@@ -187,12 +249,16 @@ var BuildSurvey = {
             },
             edit: function() {
                 var this_ = this;
-                $.each(viewCollection, function(k,v) {
-                    v.save();
-                });
-                this.div.find('.q-render-box').hide();
-                this.div.find('.q-build-box').show();
-                this.saved = false;
+                if (this.saved) {
+                    $.each(viewCollection, function(k,v) {
+                        v.save();
+                    });
+                    this.div.find('.q-render-box').hide();
+                    this.div.find('.q-build-box').show();
+                    this.div.attr({title:""});
+                    this.div.css({background:"#FFF", "border-color":"#CCC"});
+                    this.saved = false;
+                }
             },
             save: function() {
                 var this_ = this;
@@ -204,6 +270,7 @@ var BuildSurvey = {
                             var html = _.template(tmplt, data);
                             this_.div.find('.q-render').html(html);
                             this_.div.find('.q-render-box').show();
+                            this_.div.attr({title:"Click to edit & drag to reorder"});
                             indexQ();
                             this_.saved = true;
                         });
