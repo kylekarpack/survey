@@ -55,9 +55,10 @@ function toolbox_install() {
 	  sid mediumint(9) NOT NULL AUTO_INCREMENT,
 	  title text NOT NULL,
 	  status text,
-	  date_created timestamp,
-	  date_closed timestamp,
-	  date_modified timestamp,
+	  date_created TIMESTAMP,
+	  date_opened TIMESTAMP,
+	  date_closed TIMESTAMP,
+	  date_modified TIMESTAMP,
 	  author text,
 	  PRIMARY KEY  (sid)
 	);";
