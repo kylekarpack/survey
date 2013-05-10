@@ -54,11 +54,16 @@ function toolbox_install() {
 	$create_tbl_surveys = "CREATE TABLE " . $wpdb->prefix . "wp_survey_toolbox_surveys (
 	  sid mediumint(9) NOT NULL AUTO_INCREMENT,
 	  title text NOT NULL,
+	  status text,
+	  date_created timestamp,
+	  date_closed timestamp,
+	  date_modified timestamp,
+	  author text,
 	  PRIMARY KEY  (sid)
 	);";
 	
 	// Survey settings table
-	$create_tbl_surveys = "CREATE TABLE " . $wpdb->prefix . "wp_survey_toolbox_survey_settings (
+	$create_tbl_settings = "CREATE TABLE " . $wpdb->prefix . "wp_survey_toolbox_survey_settings (
 	  sid mediumint(9) NOT NULL AUTO_INCREMENT,
 	  settings text NOT NULL,
 	  PRIMARY KEY  (sid)
