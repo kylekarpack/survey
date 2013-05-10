@@ -89,8 +89,8 @@ if ($verb == "POST") {
 	// TODO: Add limiting
 	$limit = isset($_GET["limit"]) ? intval($_GET["limit"]) : 18446744073709551615;
 	
-	// GET A SPECIFIC SURVEY
-	// GET ALL SURVEY
+	// GET A SPECIFIC SURVEY (TODO)
+	// GET ALL SURVEYS
 	// GET ALL QUESTIONS IN A SURVEY
 	if (isset($_GET["sid"])) {
 		$sid = $_GET["sid"];

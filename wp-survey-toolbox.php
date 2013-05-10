@@ -61,7 +61,7 @@ function toolbox_install() {
 	$create_tbl_surveys = "CREATE TABLE " . $wpdb->prefix . "wp_survey_toolbox_survey_settings (
 	  sid mediumint(9) NOT NULL AUTO_INCREMENT,
 	  settings text NOT NULL,
-	  FOREIGN KEY  (sid)
+	  PRIMARY KEY  (sid)
 	);";
 	
 	// Responses table
@@ -116,7 +116,6 @@ function surveytoolbox_menu() {
 		add_submenu_page('wp-survey-toolbox/wp-survey-toolbox-manager.php', 'See Results', 'See Results', 'activate_plugins', 'wp-survey-toolbox/wp-survey-toolbox-results.php');
 		add_submenu_page('wp-survey-toolbox/wp-survey-toolbox-manager.php', 'Settings', 'Settings', 'activate_plugins', 'wp-survey-toolbox/wp-survey-toolbox-settings.php');
 		add_submenu_page('wp-survey-toolbox/wp-survey-toolbox-manager.php', 'API', 'API', 'activate_plugins', 'wp-survey-toolbox/wp-survey-toolbox-api.php');
-		add_submenu_page('wp-survey-toolbox/wp-survey-toolbox-manager.php', 'Test', 'Test', 'activate_plugins', 'wp-survey-toolbox/build_survey.php');
 	}
 }
 	
