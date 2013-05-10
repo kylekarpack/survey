@@ -1,18 +1,19 @@
 <div id="<%- divID %>" class="question q-<%- type %>">
     <div class="q-build-box">
         <div class="q-meta-box">
-            <span class="b-index">Question <span class="q-index"></span></span>
             <select class="q-type">
-                <option value="blank">- type -</option>
+                <option value="blank">- question type -</option>
                 <option value="radio">radio</option>
                 <option value="checkbox">checkbox</option>
                 <option value="shortanswer">short answer</option>
             </select>
+            <button class="cancel-question" type="button">Delete</button>
             <button class="view-model" type="button">Model</button>
+            <button class="save-question" type="button">Save</button>
         </div>
-        <input class="q-text" type="text" placeholder="- Question text -" />
-        <button class="cancel-question" type="button">Delete</button>
-        <button class="save-question" type="button">Save</button>
+        <div class="q-title-line">
+            <span class="q-index"></span>: <input class="q-text" type="text" placeholder="- Question text -" />
+        </div>
         <div class="q-action-box">
             <div class="action-shortanswer q-action">
                 <div class="action-shortanswer-tmplt">
@@ -20,12 +21,12 @@
                 </div>
             </div>
             <div class="action-checkbox q-action">
-                <div class="action-checkbox-tmplt">
+                <div class="action-checkbox-tmplt field-row">
                     <input type="checkbox" disabled><input class="action-checkbox-text answer-field" type="text" placeholder="- Possible response -" /><button class="q-action-add-checkbox q-add-field" type="button">+</button>
                 </div>
             </div>
             <div class="action-radio q-action">
-                <div class="action-radio-tmplt">
+                <div class="action-radio-tmplt field-row">
                     <input type="radio" disabled><input class="action-radio-text answer-field" type="text" placeholder="- Possible response -" /><button class="q-action-add-radio q-add-field" type="button">+</button>
                 </div>
             </div>

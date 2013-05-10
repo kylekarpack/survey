@@ -20,10 +20,23 @@ var BuildSurvey = {
         }
         var stburl = stburl || "wp-survey-toolbox-api.php";
         
+        var autoExpand = function(div) {
+            var newH = div.show().css({height:"auto"}).height();
+            div.height(0);
+            div.animate({height:newH+"px"}, 100, function() { $(this).css({height:"auto"}) });
+        }
+        var autoCollapse = function(div) {
+            var preH = div.height();
+            div.height(preH);
+            div.animate({height:"0px"}, 100, function() {
+                $(this).css({height:"auto"}).hide();
+            });
+        }
         
         
         $('#question-container').sortable({
-            stop: function(){indexQ()}
+            stop: function(){indexQ()},
+            distance: 20
         });
         $('#add-question').animate({opacity:1}, 200).on("click", function() {
             if (questions.length > 0) {
@@ -45,7 +58,7 @@ var BuildSurvey = {
                 title: null,
                 description: null
             },
-            url:STBroot+stburl,
+            url: STBroot+stburl,
             initialize: function() {
                 var v = new SurveyMetaView({model: this});
             }
@@ -61,7 +74,7 @@ var BuildSurvey = {
                 });
             },
             events: {
-                "change input#survey-title": "updateTitle",
+                "keyup input#survey-title": "updateTitle",
                 "click button#save-survey": "saveSurvey"
             },
             render: function() {
@@ -90,7 +103,7 @@ var BuildSurvey = {
         
         var survey = new S();
         
-        var viewCollection = [];
+        viewCollection = [];
         
         var Q = Backbone.Model.extend({
             defaults: {
@@ -132,7 +145,7 @@ var BuildSurvey = {
                 this.events["mouseenter "+id] = "showEditOptions";
                 this.events["mouseleave "+id] = "showEditOptions";
                 
-                this.events["change "+id+" input.q-text"] = "textChange";
+                this.events["keyup "+id+" input.q-text"] = "textChange";
                 this.events["change "+id+" select.q-type"] = "typeChange";
                 
                 this.events["click "+id+" button.q-action-add-checkbox"] = "addCheckbox";
@@ -237,9 +250,16 @@ var BuildSurvey = {
                 }
             },
             cancel: function(event) {
+                var this_ = this;
+                questions.remove(this.model);
+                var index;
+                $.each(viewCollection, function(k,v) {
+                    if (v.cid == this_.cid) {
+                        index = k;
+                    }
+                });
+                viewCollection.splice(index, 1);
                 $(event.currentTarget).parents('.question').remove();
-                viewCollection.splice(this.collID, 1);
-                //questions.remove(this.collID, 1);
                 indexQ();
             },
             logModelAttr: function() {
@@ -251,8 +271,10 @@ var BuildSurvey = {
                     $.each(viewCollection, function(k,v) {
                         v.save();
                     });
-                    this.div.find('.q-render-box').hide();
-                    this.div.find('.q-build-box').show();
+                    
+                    autoCollapse(this_.div.find('.q-render-box'));
+                    autoExpand(this_.div.find('.q-build-box'));
+                    
                     this.div.attr({title:""});
                     this.div.css({background:"#FFF", "border-color":"#CCC"});
                     this.saved = false;
@@ -262,12 +284,15 @@ var BuildSurvey = {
                 var this_ = this;
                 if (!this.saved) {
                     if (this.model.attributes.type) {
-                        this.div.find('.q-build-box').hide();
                         require(['text!templates/q_'+this.model.attributes.type+'.html'], function(tmplt) {
                             var data = _.extend(this_.model.attributes, util);
                             var html = _.template(tmplt, data);
+                            
                             this_.div.find('.q-render').html(html);
+                            
                             this_.div.find('.q-render-box').show();
+                            this_.div.find('.q-build-box').hide();
+                            
                             this_.div.attr({title:"Click to edit\n&\nDrag to reorder"});
                             indexQ();
                             this_.saved = true;
