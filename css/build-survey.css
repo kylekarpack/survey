@@ -42,12 +42,18 @@ button:active {
 #title-box {
     font-size:16px;
     margin-bottom:5px;
+    padding-bottom:5px;
+    border-bottom:2px solid rgb(137, 175, 223);
 }
     #survey-title {
         font-size:20px;
         width:100%;
         margin:5px 0 0 0;
         padding:10px 5px 6px 5px;
+        border:1px solid #FFF;
+    }
+    #survey-title:hover {
+        border:1px solid #CCC !important;
     }
 #add-question {
     cursor:pointer;
@@ -57,9 +63,9 @@ button:active {
     opacity:0;
 }
 .question {
-    border:1px solid #CCC;
+    border:1px solid #FFF;
     padding:5px;
-    margin-top:60px;
+    margin-top:40px;
     text-align:left;
     position:relative;
     border-radius:3px;
@@ -103,7 +109,7 @@ button:active {
         overflow:hidden;
     }
     .field-row {
-        margin-top:1px;
+        margin:1px 0 0 0;
     }
     .answer-field {
         margin:0 5px 0 5px;

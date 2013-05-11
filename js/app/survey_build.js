@@ -2,7 +2,7 @@
 var BuildSurvey = {
     init: function() {                                                          console.log("App Initiated!");
         
-        
+        var GET = fetchGETvars();
         // Utility functions
         
         var util = {
@@ -60,6 +60,13 @@ var BuildSurvey = {
             },
             url: STBroot+stburl,
             initialize: function() {
+                var this_ = this;
+                if (GET.sid) {
+                    this.url += "?sid="+GET.sid;
+                    this.fetch({success: function(json) {
+                        console.log(json);
+                    }});
+                }
                 var v = new SurveyMetaView({model: this});
             }
         });
@@ -75,6 +82,8 @@ var BuildSurvey = {
             },
             events: {
                 "keyup input#survey-title": "updateTitle",
+                "focus input#survey-title": "effects",
+                "blur input#survey-title": "effects",
                 "click button#save-survey": "saveSurvey"
             },
             render: function() {
@@ -82,6 +91,13 @@ var BuildSurvey = {
                 _.extend(data, util);
                 var html = this.tmplt(data);
                 this.$el.prepend(html);
+            },
+            effects: function(event) {
+                if (event.type == "focusin") {
+                    $(event.currentTarget).css({"border-color": "#CCC"});
+                } else {
+                    $(event.currentTarget).css({"border-color": "#FFF"});
+                }
             },
             updateTitle: function(event) {
                 this.model.set({title:$(event.currentTarget).val()});
@@ -239,7 +255,7 @@ var BuildSurvey = {
                         this.div.find('.q-edit-box').stop(true, true).show();
                     }
                 } else {
-                    this.div.css({background:"#FFF", "border-color":"#CCC"});
+                    this.div.css({background:"#FFF", "border-color":"#FFF"});
                     this.div.find('.q-edit-box').stop(true).fadeOut("fast");
                 }
             },
@@ -276,7 +292,7 @@ var BuildSurvey = {
                     autoExpand(this_.div.find('.q-build-box'));
                     
                     this.div.attr({title:""});
-                    this.div.css({background:"#FFF", "border-color":"#CCC"});
+                    this.div.css({background:"#FFF", "border-color":"#FFF"});
                     this.saved = false;
                 }
             },
@@ -303,4 +319,14 @@ var BuildSurvey = {
             }
         });
     }
+}
+
+function fetchGETvars() {
+    var vars = {};
+    var GET = window.location.search.substr(1).split("&");
+    $.each(GET, function(k,v) {
+        var x = v.split("=");
+        vars[x[0]] = x[1];
+    });
+    return vars;
 }
