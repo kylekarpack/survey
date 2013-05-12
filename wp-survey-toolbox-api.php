@@ -10,6 +10,8 @@ Behavior:
 // Load up WordPress functionality
 define( 'SHORTINIT', true );
 require_once( dirname(dirname(dirname(dirname(__FILE__)))) . '/wp-load.php' ); // A bit hacky, is there a better way?
+require_once( dirname(dirname(dirname(dirname(__FILE__)))) . '/wp-includes/pluggable.php' ); // A bit hacky, is there a better way?
+global $WP_user;
 
 header('Content-type: application/json');
 
@@ -69,14 +71,17 @@ if ($verb == "POST") {
 			
 		$sid = $request["sid"];
 		$title = isset($request["title"]) ? $request["title"] : "";
+		$time = current_time('timestamp'); // store current time
+		$current_user = wp_get_current_user();
+		$author = $current_user->ID;
 		
 		$wpdb->query(
 					$wpdb->prepare(
 							"
 							INSERT INTO " . $wpdb->prefix . "wp_survey_toolbox_surveys
-							 VALUES (%d, %s)
+							 VALUES (%d, %s, 'Open', %d, %d, %d, %d, %s)
 							",
-							$sid, $title
+							$sid, $title, $time, $time, $time, $time, $author
 					)
 		);
 		
