@@ -215,6 +215,9 @@ var BuildSurvey = {
                     val = null;
                 }
                 this.model.set({question: val});
+                if (event.keyCode == 13) {
+                    this.save();
+                }
             },
             typeChange: function(event) {
                 var val = this.div.find('.q-type').val();
@@ -225,6 +228,7 @@ var BuildSurvey = {
                 this.update();
             },
             updateAnswers: function(event) {
+                event.preventDefault();
                 if (event) {
                     if (event.keyCode == 13 || event.keyCode == 9) {
                         $(event.currentTarget).siblings('.q-add-field').click();
