@@ -1,5 +1,5 @@
 <div class="s-question q-<%- type %>">
-    <div class="s-q-title"><span class="q-index"></span>: <% print((question)?toUpper(question):"<em>No question declared</em>") %></div>
+    <div class="s-q-title"><span class="q-index"><% print((index)?parseInt(index)+1:"") %></span>: <% print((question)?toUpper(question):"<em>No question declared</em>") %></div>
     <div class="s-q-form">
         <form>
             <% _.each(answers, function(val) { %>
