@@ -39,36 +39,43 @@ if ($verb == "POST") {
 	
 		$sid = $request["sid"];		
 		
-		$qid = isset($request["qid"]) ? $request["qid"] : rand(0, 100000);
+		$updateQuestion = isset($request["qid"]);
 		$index = $request["index"];
 		$qType = $request["type"];
 		$text = $request["question"];
 		$answers = serialize($request["answers"]);
 		//$val = $request["val"];
-
-		// Insert the question into the database
-		$wpdb->query(
-					$wpdb->prepare(
-							"
-							INSERT INTO " . $wpdb->prefix . "wp_survey_toolbox_questions
-							 VALUES (%d, %s, %s, %s)
-							 ON DUPLICATE KEY UPDATE qid = %d
-							",
-							$qid, $text, $qType, $answers, $qid + 1
-					)
-		);
 		
-		// And the foreign key to the lookup table
-		$wpdb->query(
-					$wpdb->prepare(
-							"
-							INSERT INTO " . $wpdb->prefix . "wp_survey_toolbox_lookup
-							 VALUES (%d, %d, %d)
-							",
-							$sid, $qid, $index
-					)
-		);
-		echo json_encode(array("question created" => true)); // For a valid Backbone response
+		if (false == $updateQuestion) { //create a new question
+			// Insert the question into the database
+			$wpdb->query(
+						$wpdb->prepare(
+								"
+								INSERT INTO " . $wpdb->prefix . "wp_survey_toolbox_questions
+								 VALUES (%d, %s, %s, %s, %s)
+								",
+								"", $text, $qType, $answers, 'NULL'
+						)
+			);
+			
+			$qid = $wpdb->get_var("SELECT qid FROM " . $wpdb->prefix . "wp_survey_toolbox_questions ORDER BY qid DESC LIMIT 1;");
+			
+			// And the foreign key to the lookup table
+			$wpdb->query(
+						$wpdb->prepare(
+								"
+								INSERT INTO " . $wpdb->prefix . "wp_survey_toolbox_lookup
+								 VALUES (%d, %d, %d)
+								",
+								$sid, $qid, $index
+						)
+			);
+		
+			echo json_encode(array("question created" => $qid)); // For a valid Backbone response
+		} else {
+			echo "question not updated";
+			
+		}
 	
 	
 	} else { // Create a survey. Return a JSON-encoded sid to the front end
@@ -106,7 +113,7 @@ if ($verb == "POST") {
 							$wpdb->prepare(
 								"
 								SELECT * FROM " . $wpdb->prefix . "wp_survey_toolbox_questions q
-								JOIN devlocal_wp_survey_toolbox_lookup l
+								JOIN " . $wpdb->prefix . "wp_survey_toolbox_lookup l
 								ON l.qid = q.qid
 								WHERE l.sid = %d
 								",
@@ -118,7 +125,6 @@ if ($verb == "POST") {
 		$allSurveys = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "wp_survey_toolbox_surveys");
 		echo json_encode($allSurveys);
 	}
-	
 	
 } elseif ($verb == "DELETE") {
 	
@@ -136,8 +142,7 @@ if ($verb == "POST") {
 				",
 					$qid
 				)
-		);
-		
+		);		
 	
 	// Delete a survey
 	} else {
@@ -154,7 +159,6 @@ if ($verb == "POST") {
 		);
 	}
 	echo true; // Validate for Backbone
-	
 }
 
 //header('Content-Type: application/json');

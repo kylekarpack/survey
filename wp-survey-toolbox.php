@@ -43,6 +43,7 @@ function toolbox_install() {
 	  question text NOT NULL,
 	  type text NOT NULL,
 	  answers text NOT NULL,
+	  date_deleted text DEFAULT NULL,
 	  PRIMARY KEY  (qid)
 	);";
 	
