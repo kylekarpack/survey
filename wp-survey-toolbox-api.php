@@ -10,8 +10,13 @@ Behavior:
 // Load up WordPress functionality
 define( 'SHORTINIT', true );
 require_once( dirname(dirname(dirname(dirname(__FILE__)))) . '/wp-load.php' ); // A bit hacky, is there a better way?
-require_once( dirname(dirname(dirname(dirname(__FILE__)))) . '/wp-includes/pluggable.php' ); // A bit hacky, is there a better way?
-global $WP_user;
+//require_once( dirname(dirname(dirname(dirname(__FILE__)))) . '/wp-includes/pluggable.php' ); // A bit hacky, is there a better way?
+//require_once( dirname(dirname(dirname(dirname(__FILE__)))) . '/wp-blog-header.php'); // A bit hacky, is there a better way?
+
+//var_dump (wp_get_current_user());
+
+//var_dump (get_currentuserinfo());
+//exit;
 
 header('Content-type: application/json');
 
@@ -28,15 +33,13 @@ if ($verb == "POST") {
 	$request = file_get_contents('php://input');
 
 	$request = json_decode($request, true);
-
-	$requestType = $request["create"];
 	
 	// If the survey id is set, add a question to it (else create the survey
 	if (isset($request["sid"])) { // Create or update a question
 	
 		$sid = $request["sid"];		
 		
-		$qid = $request["qid"];
+		$qid = isset($request["qid"]) ? $request["qid"] : rand(0, 100000);
 		$index = $request["index"];
 		$qType = $request["type"];
 		$text = $request["question"];
@@ -49,8 +52,9 @@ if ($verb == "POST") {
 							"
 							INSERT INTO " . $wpdb->prefix . "wp_survey_toolbox_questions
 							 VALUES (%d, %s, %s, %s)
+							 ON DUPLICATE KEY UPDATE qid = %d
 							",
-							$qid, $text, $qType, $answers
+							$qid, $text, $qType, $answers, $qid + 1
 					)
 		);
 		
@@ -69,19 +73,18 @@ if ($verb == "POST") {
 	
 	} else { // Create a survey. Return a JSON-encoded sid to the front end
 			
-		$sid = $request["sid"];
+		//$sid = $request["sid"];
 		$title = isset($request["title"]) ? $request["title"] : "";
 		$time = current_time('timestamp'); // store current time
-		$current_user = wp_get_current_user();
-		$author = $current_user->ID;
+		$author = $request["author"];
 		
 		$wpdb->query(
 					$wpdb->prepare(
 							"
 							INSERT INTO " . $wpdb->prefix . "wp_survey_toolbox_surveys
-							 VALUES (%d, %s, 'Open', %d, %d, %d, %d, %s)
+							 VALUES ('', %s, 'Open', %d, %d, %d, %d, %s)
 							",
-							$sid, $title, $time, $time, $time, $time, $author
+							$title, $time, $time, $time, $time, $author
 					)
 		);
 		

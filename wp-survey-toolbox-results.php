@@ -18,4 +18,8 @@
     // }
     // die;
 // }
+global $current_user;
+get_currentuserinfo();
+var_dump ($current_user);
+
 ?>
