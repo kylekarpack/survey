@@ -97,7 +97,9 @@ var BuildSurvey = {
                             if (!q.attributes.sid) {
                                 q.set({sid:r.sid});
                             }
-                            q.save();
+                            q.save(q.attributes, {success: function(m, r) {
+                                    console.log(r);
+                            }});
                         });
                 }});
             }
