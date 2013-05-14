@@ -5,6 +5,7 @@ root {
 body {
     margin:0px;
     padding:0px;
+    font-family:sans-serif;
 }
 button {
     background: #c8e5ff; /* Old browsers */
@@ -15,30 +16,44 @@ button {
     background: -ms-linear-gradient(top,  #c8e5ff 0%,#7db9e8 100%); /* IE10+ */
     background: linear-gradient(to bottom,  #c8e5ff 0%,#7db9e8 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8e5ff', endColorstr='#7db9e8',GradientType=0 ); /* IE6-9 */
-    border:1px solid rgb(220,242,255);
+    border:1px solid rgb(230, 230, 230);
     padding:7px 14px 7px 14px;
     border-radius:3px;
     cursor:pointer;
-    box-shadow:0px 3px 5px rgba(0,0,0,.3);
+    box-shadow:0px 1px 3px rgba(0,0,0,.5);
 }
 button:hover {
-/*    background:rgb(220,242,255);*/
+    border-color:#FFF;
 }
 button:active {
-    box-shadow:inset 0px 1px 3px rgba(0,0,0,.2);
+    box-shadow:inset 0px 1px 3px rgba(0,0,0,.4);
+}
+.red-button {
+    background: #ff999a; /* Old browsers */
+    background: -moz-linear-gradient(top,  #ff999a 0%, #ed4e56 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ff999a), color-stop(100%,#ed4e56)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #ff999a 0%,#ed4e56 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #ff999a 0%,#ed4e56 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #ff999a 0%,#ed4e56 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #ff999a 0%,#ed4e56 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff999a', endColorstr='#ed4e56',GradientType=0 ); /* IE6-9 */
 }
 #container {
     width:70%;
-    margin:30px auto 0 auto;
+    margin:80px auto 0 auto;
     padding:50px 60px 50px 60px;
     position:relative;
     box-shadow:0 4px 10px rgba(0,0,0,.2);
 }
-#save-survey {
-    position:absolute;
-    bottom:5px;
-    right:5px;
-}
+    #survey-toolbox-toolbar {
+        position:absolute;
+        top:-60px;
+        left:10px;
+        height:40px;
+    }
+        #save-survey {
+            margin-right:20px;
+        }
 #title-box {
     font-size:16px;
     margin-bottom:5px;
@@ -58,7 +73,7 @@ button:active {
 #add-question {
     cursor:pointer;
     width:140px;
-    margin:15px auto 0 auto;
+    margin:40px auto 0 auto;
     display:block;
     opacity:0;
 }
@@ -70,6 +85,8 @@ button:active {
     position:relative;
     border-radius:3px;
     cursor:pointer;
+    background:#ECECEC;
+    overflow:visible !important;
 }
 .q-build-box {
     margin:10px;
@@ -91,7 +108,7 @@ button:active {
 }
 .q-action-box {
     margin:10px 0 0 3px;
-    display:none;
+    display:block;
 }
     .q-title-line {
        font-size:18px;
@@ -101,9 +118,6 @@ button:active {
         width:75%;
         padding:4px 8px 4px 8px;
     }
-    .q-type {
-        float:right;
-    }
     .q-action {
         display:none;
         overflow:hidden;
@@ -112,22 +126,32 @@ button:active {
         margin:1px 0 0 0;
     }
     .answer-field {
-        margin:0 5px 0 5px;
+        margin:0 5px 0 8px;
         width:250px;
         font-size:14px;
+    }
+    .q-remove-field {
+        display:none;
     }
     .q-meta-box {
         position:absolute;
         width:144px;
-        height:75px;
-        padding:3px;
-        top:-10px;
-        right:5px;
+        padding:15px 8px 15px 8px;
+        top:-5px;
+        right:-5px;
         border:1px solid #CCC;
         border-radius:3px;
-        background:rgb(153, 153, 153);
+/*        box-shadow:inset 0 1px 7px rgba(0,0,0, .5);*/
+        background:rgba(255,255,255,1);
         text-align:center;
+        z-index:100;
     }
+        .q-type {
+            margin:10px;
+        }
+        .q-meta-box-title {
+            font-weight:bold;
+        }
         .b-index {
             float:left;
             display:block;
@@ -142,6 +166,16 @@ button:active {
         padding:10px;
         color:#999 !important;
     }
+    .q-field-action {
+        padding:2px 5px 2px 5px;
+        width:24px;
+        margin-right:3px;
+    }
+    .q-field-error {
+        color:#F30;
+        margin-left:10px;
+        display:none;
+    }
     
     
     
@@ -155,6 +189,16 @@ button:active {
     overflow:hidden;
 }
 
+.s-question {
+    /*margin-bottom:50px;*/
+}
+.s-title {
+    font-size:20px;
+    width:100%;
+    margin:5px 0 0 0;
+    padding:10px 5px 6px 5px;
+    border:1px solid #FFF;
+}
 .s-q-title {
     font-size:18px;
     margin:10px;
@@ -169,9 +213,17 @@ button:active {
     font-size:14px;
 }
 .s-q-shortanswer-text {
-    width:100%;
+    width:98%;
     margin-left:-1px;
-    padding:10px;
+    font-size:18px;
+    padding:10px 2px 10px 2px;
+    border-radius:3px;
+    border:1px solid #dfdfdf;
+}
+.s-submit {
+    width:180px;
+    margin:20px auto 0 auto;
+    display:block;
 }
     
     
@@ -189,4 +241,9 @@ button:active {
 
 :-ms-input-placeholder {  
    color:rgb(137, 175, 223);  
+}
+
+.loading-img {
+    display:block;
+    margin:0 auto 0 auto;
 }
