@@ -27,6 +27,10 @@ var SurveyManager = {
         
         var Survey = Backbone.Model.extend({
             initialize: function() {
+                this.set({
+                    edit: "?page=wp-survey-toolbox/wp-survey-toolbox-builder.php&sid="+this.attributes.sid,
+                    take: STBroot+"survey.php?sid="+this.attributes.sid
+                });
                 var v = new SurveyView({model: this});
             }
         });

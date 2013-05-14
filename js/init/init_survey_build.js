@@ -1,4 +1,4 @@
-
+//var STBurl = "http://localhost/wp-survey-toolbox/wp-content/plugins/wp-survey-toolbox/js"
 
 require.config({
     shim: {
@@ -6,7 +6,7 @@ require.config({
             exports: '_'
         },
         backbone: {
-            deps: ["underscore", "jquery"],
+            deps: ["underscore", "jquery", "jquery-ui", "text", "util"],
             exports: "Backbone"
         }
     },
@@ -14,11 +14,11 @@ require.config({
         'templates': "../templates",
         'app': "../app"
     },
-    baseUrl: 'js/libs'
+    baseUrl: STBroot+'js/libs'
 });
 
 //the "main" function to bootstrap your code
-require(['jquery', 'underscore', 'backbone', 'text', 'app/survey'], function ($, _, Backbone, TEXT, appEngine) {   // or, you could use these deps in a separate module using define
-    SurveyPage.init();
+require(['backbone', 'app/survey_build'], function () {
+    BuildSurvey.init();
 });
 

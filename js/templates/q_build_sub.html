@@ -1,0 +1,17 @@
+<div class="action-shortanswer-tmplt">
+    <input class="action-shortanswer-text" type="text" size="60" value="Short Answer Response" disabled />
+</div>
+||
+<div class="action-checkbox-tmplt field-row">
+    <input type="checkbox" disabled><input class="action-checkbox-text answer-field" type="text" placeholder="- possible answer -" value="<% print((val)?val:'') %>" />
+    <button class="q-remove-field red-button q-field-action" type="button">-</button>
+    <button class="q-add-field q-field-action" type="button">+</button>
+    <span class="q-field-error"></span>
+</div>
+||
+<div class="action-radio-tmplt field-row">
+    <input type="radio" disabled><input class="action-radio-text answer-field" type="text" placeholder="- possible answer -" value="<% print((val)?val:'') %>" />
+    <button class="q-remove-field red-button q-field-action" type="button">-</button>
+    <button class="q-add-field q-field-action" type="button">+</button>
+    <span class="q-field-error"></span>
+</div>

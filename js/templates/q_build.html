@@ -1,35 +1,21 @@
 <div id="<%- divID %>" class="question q-<%- type %>">
     <div class="q-build-box">
         <div class="q-meta-box">
+            <div class="q-meta-box-title">Actions</div>
             <select class="q-type">
                 <option value="blank">- question type -</option>
-                <option value="radio">radio</option>
-                <option value="checkbox">checkbox</option>
-                <option value="shortanswer">short answer</option>
+                <option value="radio" <% print((type=='radio')?'selected':'') %>>radio</option>
+                <option value="checkbox" <% print((type=='checkbox')?'selected':'') %>>checkbox</option>
+                <option value="shortanswer" <% print((type=='shortanswer')?'selected':'') %>>short answer</option>
             </select>
             <button class="cancel-question" type="button">Delete</button>
             <button class="view-model" type="button">Model</button>
             <button class="save-question" type="button">Save</button>
         </div>
         <div class="q-title-line">
-            <span class="q-index"></span>: <input class="q-text" type="text" placeholder="- Question text -" />
+            <span class="q-index"></span>: <input class="q-text" type="text" placeholder="- question text -" value="<% print((question)?question:'') %>" />
         </div>
-        <div class="q-action-box">
-            <div class="action-shortanswer q-action">
-                <div class="action-shortanswer-tmplt">
-                    <input class="action-shortanswer-text" type="text" size="60" value="Short Answer Response" disabled />
-                </div>
-            </div>
-            <div class="action-checkbox q-action">
-                <div class="action-checkbox-tmplt field-row">
-                    <input type="checkbox" disabled><input class="action-checkbox-text answer-field" type="text" placeholder="- Possible response -" /><button class="q-action-add-checkbox q-add-field" type="button">+</button>
-                </div>
-            </div>
-            <div class="action-radio q-action">
-                <div class="action-radio-tmplt field-row">
-                    <input type="radio" disabled><input class="action-radio-text answer-field" type="text" placeholder="- Possible response -" /><button class="q-action-add-radio q-add-field" type="button">+</button>
-                </div>
-            </div>
+        <div class="q-answer-box">
         </div>
     </div>
     <div class="q-render-box">
@@ -37,7 +23,6 @@
 <!--            <button class="cancel-question">Delete</button>-->
         </div>
         <div class="q-render">
-            
         </div>
     </div>
 </div>
